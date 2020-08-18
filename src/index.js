@@ -47,7 +47,7 @@ async function HandleMessage(ctx) {
     await standby(userid);
     await menu(ctx);
   } else data = toobj(data);
-  switch (ctx.event.message.text) {
+  switch (ctx.event.message.text.toLowerCase()) {
     case 'exit':
       unmatch(ctx);
       break;
@@ -55,6 +55,9 @@ async function HandleMessage(ctx) {
       stop(ctx);
       break;
     }
+    case 'id':
+      ctx.sendText(`ID của bạn là: ${userid}`);
+      break;
     default:
       {
         if (data && data.target)
@@ -161,6 +164,7 @@ async function standby(id) {
 }
 
 async function handleAttachment(ctx, type, url) {
+  if (!type) return;
   if (!isURL(url)) return;
   const id = ctx.event.rawEvent.sender.id;
   let data = await getAsync(id);
@@ -171,7 +175,7 @@ async function handleAttachment(ctx, type, url) {
   data = toobj(data);
   if (data.target) {
     // chờ fix
-    switch (type) {
+    switch (type.toLowerCase()) {
       case 'image':
         ctx.sendImage(url, { recipient: { id: data.target } });
         break;
