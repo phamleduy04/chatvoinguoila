@@ -2,7 +2,7 @@ let db;
 const redis = require('redis');
 const { promisify } = require('util');
 const isURL = require('is-url');
-const { logging } = require('./util');
+const { logging, exportLog } = require('./util');
 if (process.env.REDISTOGO_URL) {
   const rtg = require('url').parse(process.env.REDISTOGO_URL);
   db = redis.createClient(rtg.port, rtg.hostname);
@@ -47,7 +47,11 @@ async function HandleMessage(ctx) {
     await standby(userid);
     await menu(ctx);
   } else data = toobj(data);
-  switch (ctx.event.message.text.toLowerCase()) {
+  let msgText = ctx.event.message.text.toLowerCase();
+  if (msgText == 'exportlog' && userid == process.env.OWNERID) {
+    return ctx.sendText(await exportLog());
+  }
+  switch (msgText) {
     case 'exit':
       unmatch(ctx);
       break;

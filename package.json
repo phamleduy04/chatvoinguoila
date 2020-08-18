@@ -18,7 +18,8 @@
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "prettier": "2.0.5",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "vultrex.haste": "^1.0.1"
   },
   "devDependencies": {
     "all-contributors-cli": "^6.17.2"
