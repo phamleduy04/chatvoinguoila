@@ -11,16 +11,16 @@
 2. Clone [repo]([https://github.com/phamleduy04/chatvoinguoila](https://github.com/phamleduy04/chatvoinguoila)) này về máy tính của bạn.
 3. Vào [Facebook Developer]([http://developers.facebook.com](http://developers.facebook.com/)), chọn My Apps -> Create App
 4. Đặt tên app
-5. Sau đó vào phần Setup trên Messenger. 
-6. Add trang của bạn vào.
-7. Bấm vào nút Generate Token (Copy vào phần MESSENGER_ACCESS_TOKEN)
-8. Lấy Page ID (Copy vào phần MESSENGER_PAGE_ID)
+5. Sau đó vào phần Setup trên Messenger. [Hình ảnh](https://github.com/phamleduy04/chatvoinguoila/blob/master/assets/msg.png?raw=true)
+6. Add trang của bạn vào. [Hình ảnh](https://raw.githubusercontent.com/phamleduy04/chatvoinguoila/master/assets/add%20page.png)
+7. Bấm vào nút Generate Token (Copy vào phần MESSENGER_ACCESS_TOKEN) [Hình ảnh](https://github.com/phamleduy04/chatvoinguoila/blob/master/assets/gen%20token.png?raw=true)
+8. Lấy Page ID (Copy vào phần MESSENGER_PAGE_ID) [Hình ảnh](https://github.com/phamleduy04/chatvoinguoila/blob/master/assets/page%20id.png)
 9. Lấy APP_ID và APP_SECRET (Chọn Settings -> Basic) 
 10. Phần VERIFY_TOKEN sẽ là bạn tự đặt. 
 11. Đổi tên file .env.example thành .env.
-12. Setup Redis (2 cách)
--- Cách 1: Chạy Redis trên máy tính của chính bạn. Cách cài đặt Redis
--- Cách 2: Mở host trên Heroku
+12. Setup Redis (có 2 cách)
+- Cách 1: Chạy Redis trên máy tính của chính bạn. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-redis)
+- Cách 2: Chạy Redis trên Heroku. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-redis)
 13. Thay đổi file .env
 ```
 MESSENGER_PAGE_ID=
@@ -48,6 +48,7 @@ REDISTOGO_URL=
 ```
 ## Hỗ trợ bot
 Các bạn có thể tạo [PR (Pull request)]([https://github.com/phamleduy04/chatvoinguoila/pulls](https://github.com/phamleduy04/chatvoinguoila/pulls)) hoặc [issue]([https://github.com/phamleduy04/chatvoinguoila/issues](https://github.com/phamleduy04/chatvoinguoila/issues)).
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
