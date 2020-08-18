@@ -30,7 +30,7 @@ MESSENGER_APP_SECRET=
 MESSENGER_VERIFY_TOKEN=
 ``` 
 14. Chạy lệnh `npm run dev`
-15. Sau đó tạo 1 terminal mới và nhập lệnh `npx bottender messenger profile set` và `npx bottender messenger webhook set`
+15. Sau đó tạo 1 terminal mới và nhập lệnh `npm run setprofile` và `npm run setwebhook`
 ## Cách cài đặt Redis
 **Nếu các bạn đã sử dụng Redis trên Heroku thì không cần bước này**
 - Windows: [Link hướng dẫn](https://redislabs.com/blog/redis-on-windows-10/)
