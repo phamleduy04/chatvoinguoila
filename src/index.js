@@ -16,7 +16,6 @@ const setAsync = promisify(db.set).bind(db);
 
 module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
-  else if (ctx.event.isLikeSticker) return unmatch;
   else if (ctx.event.isText) return HandleMessage;
   else if (ctx.event.isImage) return HandleImage;
   else if (ctx.event.isAudio) return HandleAudio;
@@ -25,6 +24,10 @@ module.exports = async function App(ctx) {
 };
 
 async function HandleImage(ctx) {
+  /*
+  let stickerID = ctx.event.rawEvent.message.attachments[0].payload.stickerId;
+  if (stickerID) return await handleAttachment(ctx, 'sticker', stickerID);
+  */
   await handleAttachment(ctx, 'image', ctx.event.image.url);
 }
 
@@ -96,6 +99,8 @@ async function HandlePostBack(ctx) {
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let data = await getAsync('waitlist');
+  let userData = await getAsync(id);
+  if (userData !== null) userData = toobj(userData);
   if (!data || data == 'null') {
     await standby(id);
     await setAsync('waitlist', id);
@@ -107,7 +112,9 @@ async function wait(ctx) {
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
     );
-  else {
+  else if (userData.status !== 'standby') {
+    return ctx.sendText('Bạn đang ghép với ai đó.');
+  } else {
     await setAsync(data, tostr({ status: 'matched', target: id }));
     await setAsync(id, tostr({ status: 'matched', target: data }));
     await delAsync('waitlist');
@@ -144,6 +151,7 @@ async function stop(ctx) {
   else {
     await delAsync('waitlist');
     await standby(id);
+    return ctx.sendText('Bạn đã ngừng tìm kiếm!');
   }
 }
 async function menu(ctx) {
@@ -180,7 +188,7 @@ async function standby(id) {
 
 async function handleAttachment(ctx, type, url) {
   if (!type) return;
-  if (!isURL(url)) return;
+  if (!isURL(url)) return; // if (!isURL(url) && type !== 'sticker') return;
   const id = ctx.event.rawEvent.sender.id;
   let data = await getAsync(id);
   if (!data || data == null) {
@@ -192,17 +200,21 @@ async function handleAttachment(ctx, type, url) {
     // chờ fix
     switch (type.toLowerCase()) {
       case 'image':
-        ctx.sendImage(url, { recipient: { id: data.target } });
+        await ctx.sendImage(url, { recipient: { id: data.target } });
         break;
       case 'video':
-        ctx.sendVideo(url, { recipient: { id: data.target } });
+        await ctx.sendVideo(url, { recipient: { id: data.target } });
         break;
       case 'audio':
-        ctx.sendAudio(url, { recipient: { id: data.target } });
+        await ctx.sendAudio(url, { recipient: { id: data.target } });
         break;
       case 'file':
-        ctx.sendFile(url, { recipient: { id: data.target } });
+        await ctx.sendFile(url, { recipient: { id: data.target } });
         break;
+      /*
+      case 'sticker':
+        ctx.sendFile({ stickerId: url }, { recipient: { id: data.target } });
+      */
     }
   }
 }
