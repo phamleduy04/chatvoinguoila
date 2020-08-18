@@ -16,9 +16,11 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/32657584?v=4",
       "profile": "https://github.com/phamleduy04",
       "contributions": [
-        "bug"
+        "bug",
+        "code"
       ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
