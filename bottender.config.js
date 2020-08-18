@@ -37,8 +37,13 @@ module.exports = {
               },
               {
                 type: 'web_url',
-                title: 'Báo lỗi?',
-                url: 'https://github.com/phamleduy04/chatvoinguoila',
+                title: 'Báo lỗi và góp ý',
+                url: 'https://forms.gle/RHg7wA9Ybs9prkd98',
+              },
+              {
+                type: 'web_url',
+                title: 'Báo cáo người khác',
+                url: 'https://forms.gle/kQuwrZ2NDdXuki2n9',
               },
             ],
           },

@@ -62,6 +62,9 @@ async function HandleMessage(ctx) {
     case 'id':
       ctx.sendText(`ID của bạn là: ${userid}`);
       break;
+    case 'menu':
+      await menu(ctx);
+      break;
     default:
       {
         if (data && data.target)
@@ -151,8 +154,13 @@ async function menu(ctx) {
     },
     {
       type: 'web_url',
-      title: 'Góp ý cho bot',
-      url: 'https://github.com/phamleduy04',
+      title: 'Góp ý và báo lỗi',
+      url: 'https://forms.gle/RHg7wA9Ybs9prkd98',
+    },
+    {
+      type: 'web_url',
+      title: 'Báo cáo người khác',
+      url: 'https://forms.gle/kQuwrZ2NDdXuki2n9',
     },
   ]);
 }
