@@ -8,11 +8,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/phamleduy04"><img src="https://avatars2.githubusercontent.com/u/32657584?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duy Pham Le</b></sub></a><br /><a href="https://github.com/phamleduy04/chatvoinguoila/issues?q=author%3Aphamleduy04" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/phamleduy04"><img src="https://avatars2.githubusercontent.com/u/32657584?v=4" width="100px;" alt=""/><br /><sub><b>Duy Pham Le</b></sub></a><br /><a href="https://github.com/phamleduy04/chatvoinguoila/issues?q=author%3Aphamleduy04" title="Bug reports">🐛</a> <a href="https://github.com/phamleduy04/chatvoinguoila/commits?author=phamleduy04" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-restore -->
+<!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
