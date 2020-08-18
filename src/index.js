@@ -2,7 +2,7 @@ let db;
 const redis = require('redis');
 const { promisify } = require('util');
 const isURL = require('is-url');
-
+const { logging } = require('./util');
 if (process.env.REDISTOGO_URL) {
   const rtg = require('url').parse(process.env.REDISTOGO_URL);
   db = redis.createClient(rtg.port, rtg.hostname);
@@ -105,6 +105,7 @@ async function wait(ctx) {
     await delAsync('waitlist');
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
+    logging();
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: data } });
   }
@@ -118,6 +119,7 @@ async function unmatch(ctx) {
   else {
     await standby(data.target);
     await standby(id);
+    logging();
     await ctx.sendText('Đã ngắt kết nối với đối phương!');
     await ctx.sendMessage(
       { text: 'Người bên kia đã ngắt kết nối với bạn 😢.' },
