@@ -109,7 +109,7 @@ async function wait(ctx) {
     await delAsync('waitlist');
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
-    logging();
+    logging(`${id} đã ghép đôi với ${data}`);
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: data } });
   }
@@ -123,7 +123,7 @@ async function unmatch(ctx) {
   else {
     await standby(data.target);
     await standby(id);
-    logging();
+    logging(`${id} đã ngắt kết nói với ${data.target}`);
     await ctx.sendText('Đã ngắt kết nối với đối phương!');
     await ctx.sendMessage(
       { text: 'Người bên kia đã ngắt kết nối với bạn 😢.' },
