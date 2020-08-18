@@ -14,7 +14,7 @@
 5. Sau đó vào phần Setup trên Messenger. [Hình ảnh](https://github.com/phamleduy04/chatvoinguoila/blob/master/assets/msg.png?raw=true)
 6. Add trang của bạn vào. [Hình ảnh](https://raw.githubusercontent.com/phamleduy04/chatvoinguoila/master/assets/add%20page.png)
 7. Bấm vào nút Generate Token (Copy vào phần MESSENGER_ACCESS_TOKEN) [Hình ảnh](https://github.com/phamleduy04/chatvoinguoila/blob/master/assets/gen%20token.png?raw=true)
-8. Lấy Page ID (Copy vào phần MESSENGER_PAGE_ID) [Hình ảnh](https://github.com/phamleduy04/chatvoinguoila/blob/master/assets/page%20id.png)
+8. Lấy Page ID (Copy vào phần MESSENGER_PAGE_ID) [Hình ảnh](https://github.com/phamleduy04/chatvoinguoila/blob/master/assets/page%20id.png?raw=true)
 9. Lấy APP_ID và APP_SECRET (Chọn Settings -> Basic) 
 10. Phần VERIFY_TOKEN sẽ là bạn tự đặt. 
 11. Đổi tên file .env.example thành .env.
