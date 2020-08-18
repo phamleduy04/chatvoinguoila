@@ -102,6 +102,7 @@ async function wait(ctx) {
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
+    await setAsync(id, tostr({ status: 'matching', target: null }));
   } else if (data == id)
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
