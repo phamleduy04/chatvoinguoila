@@ -46,8 +46,8 @@ MESSENGER_VERIFY_TOKEN=
 ```
 REDISTOGO_URL=
 ```
-## Hỗ trợ bot
-Các bạn có thể tạo [PR (Pull request)]([https://github.com/phamleduy04/chatvoinguoila/pulls](https://github.com/phamleduy04/chatvoinguoila/pulls)) hoặc [issue]([https://github.com/phamleduy04/chatvoinguoila/issues](https://github.com/phamleduy04/chatvoinguoila/issues)).
+## Báo lỗi và góp ý
+Các bạn có thể tạo [PR (Pull request)](https://github.com/phamleduy04/chatvoinguoila/pulls) hoặc [issue](https://github.com/phamleduy04/chatvoinguoila/issues).
 
 ## Contributors ✨
 
