@@ -7,7 +7,7 @@
 ![Scrutinizer code quality (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/quality/g/phamleduy04/chatvoinguoila?style=for-the-badge)
 
 ## Hướng dẫn cách chạy bot
-1. Tải và cài đặt [NodeJS]([https://nodejs.org/en/](https://nodejs.org/en/))  (LTS)
+1. Tải và cài đặt [NodeJS](https://nodejs.org/en/) (LTS)
 2. Clone [repo]([https://github.com/phamleduy04/chatvoinguoila](https://github.com/phamleduy04/chatvoinguoila)) này về máy tính của bạn.
 3. Vào [Facebook Developer]([http://developers.facebook.com](http://developers.facebook.com/)), chọn My Apps -> Create App
 4. Đặt tên app
