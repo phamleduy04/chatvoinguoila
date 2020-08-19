@@ -2,7 +2,7 @@
 **Ngày cập nhật: 19/08/2020 (DD/MM/YYYY)**
 
 ## Điều khoản dịch vụ
-Cảm ơn các bạn đã sử dụng các sản phẩm và dịch vụ của mình. Dịch vụ được cung cấp bởi mình. Thông tin liên hệ sẽ được kèm ở dưới cùng.
+Cảm ơn các bạn đã sử dụng các sản phẩm và dịch vụ của mình. Dịch vụ được cung cấp bởi mình. [Thông tin liên hệ](https://github.com/phamleduy04/chatvoinguoila/blob/master/dieukhoan.md#th%C3%B4ng-tin-li%C3%AAn-h%E1%BB%87) sẽ được kèm ở dưới cùng.
 
 ## Những thông tin sẽ được thu thập
 - Thông tin cá nhân (Tên, ID facebook)
@@ -34,6 +34,6 @@ Các thông tin cá nhân của người dùng có thể được mình sử d�
 
 
 ## Thông tin liên hệ
-Phạm Lê Duy
-Email: phamleduy04@gmail.com
-Facebook: [Lê Duy](https://www.facebook.com/leduy2004/)
+- Tên: Phạm Lê Duy
+- Email: phamleduy04@gmail.com
+- Facebook: [Lê Duy](https://www.facebook.com/leduy2004/)
