@@ -9,8 +9,7 @@
     "test": "cross-env TYPE_RUN=ci node index.js",
     "setprofile": "npx bottender messenger profile set",
     "setwebhook": "npx bottender messenger webhook set",
-    "getprofile": "npx bottender messenger profile get",
-    "build": "npm-run-all setprofile start"
+    "getprofile": "npx bottender messenger profile get"
   },
   "dependencies": {
     "bottender": "1.4.10",
