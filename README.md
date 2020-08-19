@@ -20,7 +20,7 @@
 11. Đổi tên file .env.example thành .env.
 12. Setup Redis (có 2 cách)
 - Cách 1: Chạy Redis trên máy tính của chính bạn. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-redis)
-- Cách 2: Chạy Redis trên Heroku. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-redis)
+- Cách 2: Chạy Redis trên Heroku. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-setup-redis-tr%C3%AAn-heroku)
 13. Thay đổi file .env
 ```
 MESSENGER_PAGE_ID=
