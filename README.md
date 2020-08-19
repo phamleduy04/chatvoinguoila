@@ -1,5 +1,5 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/phamleduy04/chatvoinguoila?style=for-the-badge)](https://github.com/phamleduy04/chatvoinguoila/issues)
-![Travis (.org)](https://img.shields.io/travis/phamleduy04/chatvoinguoila?style=for-the-badge)
+![Travis (.org)](https://img.shields.io/travis/phamleduy04/chatvoinguoila?label=TRAVIS-CI&logo=TRAVIS&style=for-the-badge)
 ![David](https://img.shields.io/david/phamleduy04/chatvoinguoila?style=for-the-badge)
 [![Visits Badge](https://badges.pufler.dev/visits/phamleduy04/chatvoinguoila?style=for-the-badge)](https://badges.pufler.dev)
 ![GitHub top language](https://img.shields.io/github/languages/top/phamleduy04/chatvoinguoila?style=for-the-badge)
