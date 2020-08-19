@@ -6,6 +6,7 @@
     "dev": "bottender dev",
     "lint": "eslint . ",
     "start": "bottender start",
+    "start-bot": "npm-run-all setprofile start",
     "test": "cross-env TYPE_RUN=ci node index.js",
     "setprofile": "npx bottender messenger profile set",
     "setwebhook": "npx bottender messenger webhook set",
