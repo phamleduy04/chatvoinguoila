@@ -89,7 +89,7 @@ async function HandlePostBack(ctx) {
     case 'GET_STARTED': {
       let userprofile = await ctx.getUserProfile();
       await ctx.sendText(
-        `Chào mừng bạn ${userprofile.name} đã đến với Bất Tử bot!`
+        `Chào mừng bạn ${userprofile.name} đã đến với Bất Tử bot!\nKhi bạn bấm nút bắt đầu có nghĩa là bạn đã đồng ý các điều khoản được ghi ở https://bit.ly/3iV6w81`
       );
       menu(ctx);
     }
