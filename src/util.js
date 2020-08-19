@@ -7,7 +7,9 @@ module.exports = {
     const moment = require('moment-timezone');
     const timenow = moment().tz(process.env.TIMEZONE || 'America/Chicago').format('lll');
     const oldData = readFileSync(logPath, 'utf-8');
-    writeFileSync(logPath, `${oldData}\n${timenow} || ${text}`);
+    const string = `${timenow} || ${text}`
+    console.log(string);
+    writeFileSync(logPath, `${oldData}\n${string}`);
   },
   exportLog: async function(){
     const { VultrexHaste } = require('vultrex.haste');
