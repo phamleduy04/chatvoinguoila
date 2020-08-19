@@ -32,7 +32,7 @@ module.exports = {
             callToActions: [
               {
                 type: 'postback',
-                title: 'Bắt đầu chat',
+                title: 'Tìm kiếm',
                 payload: 'START_MATCHING',
               },
               {

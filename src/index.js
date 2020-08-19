@@ -163,7 +163,7 @@ async function menu(ctx) {
     },
     {
       type: 'web_url',
-      title: 'Góp ý và báo lỗi',
+      title: 'Báo lỗi và góp ý',
       url: 'https://forms.gle/RHg7wA9Ybs9prkd98',
     },
     {
