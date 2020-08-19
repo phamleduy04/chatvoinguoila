@@ -20,7 +20,7 @@
 11. Đổi tên file .env.example thành .env.
 12. Setup Redis (có 2 cách)
 - Cách 1: Chạy Redis trên máy tính của chính bạn. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-redis)
-- Cách 2: Chạy Redis trên Heroku. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-redis)
+- Cách 2: Chạy Redis trên Heroku. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-setup-redis-tr%C3%AAn-heroku)
 13. Thay đổi file .env
 ```
 MESSENGER_PAGE_ID=
@@ -30,7 +30,7 @@ MESSENGER_APP_SECRET=
 MESSENGER_VERIFY_TOKEN=
 ``` 
 14. Chạy lệnh `npm run dev`
-15. Sau đó tạo 1 terminal mới và nhập lệnh `npx bottender messenger profile set` và `npx bottender messenger webhook set`
+15. Sau đó tạo 1 terminal mới và nhập lệnh `npm run setprofile` và `npm run setwebhook`
 ## Cách cài đặt Redis
 **Nếu các bạn đã sử dụng Redis trên Heroku thì không cần bước này**
 - Windows: [Link hướng dẫn](https://redislabs.com/blog/redis-on-windows-10/)
@@ -46,8 +46,8 @@ MESSENGER_VERIFY_TOKEN=
 ```
 REDISTOGO_URL=
 ```
-## Hỗ trợ bot
-Các bạn có thể tạo [PR (Pull request)]([https://github.com/phamleduy04/chatvoinguoila/pulls](https://github.com/phamleduy04/chatvoinguoila/pulls)) hoặc [issue]([https://github.com/phamleduy04/chatvoinguoila/issues](https://github.com/phamleduy04/chatvoinguoila/issues)).
+## Báo lỗi và góp ý
+Các bạn có thể tạo [PR (Pull request)](https://github.com/phamleduy04/chatvoinguoila/pulls) hoặc [issue](https://github.com/phamleduy04/chatvoinguoila/issues).
 
 ## Contributors ✨
 
