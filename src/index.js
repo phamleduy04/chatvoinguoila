@@ -98,7 +98,7 @@ async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let data = await getAsync('waitlist');
   let userData = await getAsync(id);
-  if (!userData) userData = { stauts: null, target: null };
+  if (!userData) userData = { stauts: 'standby', target: null };
   if (!data) {
     await standby(id);
     await setAsync('waitlist', id);
@@ -110,7 +110,7 @@ async function wait(ctx) {
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
     );
-  else if (userData.status !== 'matching') {
+  else if (userData.status !== 'standby') {
     return ctx.sendText('Bạn đang ghép với ai đó.');
   } else {
     await setAsync(data, { status: 'matched', target: id });
