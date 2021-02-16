@@ -1,8 +1,7 @@
-const { MONGODB, OWNERID } = process.env;
+const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
 const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
-const { logging, exportLog } = require('./util');
 
 module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
@@ -118,7 +117,8 @@ async function wait(ctx) {
     await delAsync('waitlist');
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
-    logging(`${id} đã ghép đôi với ${data}`);
+    const logString = `${id} đã ghép đôi với ${data}`;
+    await logging(logString);
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: data } });
   }
@@ -132,7 +132,7 @@ async function unmatch(ctx) {
   else {
     await standby(data.target);
     await standby(id);
-    logging(`${id} đã ngắt kết nói với ${data.target}`);
+    await logging(`${id} đã ngắt kết nói với ${data.target}`);
     await ctx.sendText('Đã ngắt kết nối với đối phương!');
     await ctx.sendMessage(
       { text: 'Người bên kia đã ngắt kết nối với bạn 😢.' },
@@ -152,6 +152,7 @@ async function stop(ctx) {
     return ctx.sendText('Bạn đã ngừng tìm kiếm!');
   }
 }
+
 async function menu(ctx) {
   await ctx.sendButtonTemplate('Chọn các nút ở dưới để sử dụng bot!', [
     {
@@ -178,7 +179,7 @@ async function standby(id) {
 
 async function handleAttachment(ctx, type, url) {
   if (!type) return;
-  if (!isURL(url)) return; // if (!isURL(url) && type !== 'sticker') return;
+  if (!isURL(url)) return;
   const id = ctx.event.rawEvent.sender.id;
   let data = await getAsync(id);
   if (!data || data == null) {
@@ -204,4 +205,34 @@ async function handleAttachment(ctx, type, url) {
   }
 }
 
-if (process.env.TYPE_RUN == 'ci') process.exit();
+async function exportLog() {
+  let data = await db.get('log');
+  data = data.join('\n');
+  const { create } = require('sourcebin');
+  const bin = await create(
+    [
+      {
+        content: data,
+        language: 'text',
+      },
+    ],
+    {
+      title: 'User log',
+      description: 'User log',
+    }
+  );
+  return bin.url;
+}
+
+async function logging(text) {
+  if (!text) return;
+  const moment = require('moment-timezone');
+  const timenow = moment()
+    .tz(TIMEZONE || 'America/Chicago')
+    .format('lll');
+  const string = `${timenow} || ${text}`;
+  console.log(string);
+  await db.push('log', string);
+}
+
+if (TYPE_RUN == 'ci') process.exit();

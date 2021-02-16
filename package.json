@@ -26,6 +26,7 @@
     "prettier": "2.0.5",
     "quickmongo": "^3.0.0",
     "redis": "^3.0.2",
+    "sourcebin": "^4.0.2",
     "vultrex.haste": "^1.0.1"
   },
   "devDependencies": {
