@@ -47,7 +47,7 @@ async function HandleMessage(ctx) {
   if (!data || data === null) {
     await standby(userid);
     await menu(ctx);
-  } else data = toobj(data);
+  }
   let msgText = ctx.event.message.text.toLowerCase();
   if (msgText == 'exportlog' && userid == OWNERID) {
     return ctx.sendText(await exportLog());
@@ -98,14 +98,14 @@ async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let data = await getAsync('waitlist');
   let userData = await getAsync(id);
-  if (userData !== null) userData = toobj(userData);
-  if (!data || data == 'null') {
+  if (!userData) userData = { stauts: null, target: null };
+  if (!data) {
     await standby(id);
     await setAsync('waitlist', id);
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
-    await setAsync(id, tostr({ status: 'matching', target: null }));
+    await setAsync(id, { status: 'matching', target: null });
   } else if (data == id)
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
@@ -113,8 +113,8 @@ async function wait(ctx) {
   else if (userData.status !== 'standby') {
     return ctx.sendText('Bạn đang ghép với ai đó.');
   } else {
-    await setAsync(data, tostr({ status: 'matched', target: id }));
-    await setAsync(id, tostr({ status: 'matched', target: data }));
+    await setAsync(data, { status: 'matched', target: id });
+    await setAsync(id, { status: 'matched', target: data });
     await delAsync('waitlist');
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
@@ -126,7 +126,7 @@ async function wait(ctx) {
 
 async function unmatch(ctx) {
   const id = ctx.event.rawEvent.sender.id;
-  const data = toobj(await getAsync(id));
+  const data = await getAsync(id);
   if (data.status !== 'matched')
     return ctx.sendText('Bạn hiện tại không có match với ai!');
   else {
@@ -143,7 +143,7 @@ async function unmatch(ctx) {
 
 async function stop(ctx) {
   const id = ctx.event.rawEvent.sender.id;
-  const data = toobj(await getAsync(id));
+  const data = await getAsync(id);
   if (data.status !== 'matching')
     return ctx.sendText('Bạn hiện tại không nằm trong hàng chờ');
   else {
@@ -172,16 +172,8 @@ async function menu(ctx) {
   ]);
 }
 
-function tostr(obj) {
-  return JSON.stringify(obj);
-}
-
-function toobj(str) {
-  return JSON.parse(str);
-}
-
 async function standby(id) {
-  await setAsync(id, tostr({ status: 'standby', target: null }));
+  await setAsync(id, { status: 'standby', target: null });
 }
 
 async function handleAttachment(ctx, type, url) {
@@ -193,7 +185,6 @@ async function handleAttachment(ctx, type, url) {
     await standby(id);
     menu(ctx);
   }
-  data = toobj(data);
   if (data.target) {
     // chờ fix
     switch (type.toLowerCase()) {
