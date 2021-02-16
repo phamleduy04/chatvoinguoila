@@ -1,1 +1,1 @@
-web: npm run start-bot
+web: npm run pm2
