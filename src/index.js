@@ -119,7 +119,8 @@ async function HandlePostBack(ctx) {
 
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
-  if (cooldown.has(id)) return ctx.sendText('Bạn vui lòng chờ trong giây lát');
+  if (cooldown.has(id))
+    return ctx.sendText('Bạn vui lòng chờ trong giây lát nhé!');
   cooldown.add(id);
   let data = await qdb.get('waitlist');
   let userData = await getAsync(id);
@@ -151,7 +152,7 @@ async function wait(ctx) {
   }
   setTimeout(() => {
     cooldown.delete(id);
-  }, ms('15s'));
+  }, ms('10s'));
 }
 
 async function unmatch(ctx) {
