@@ -1,5 +1,5 @@
 const { getClient } = require('bottender');
-
+if (process.env.TYPE_RUN == 'ci') return;
 const client = getClient('messenger');
 
 module.exports = {
