@@ -3,6 +3,7 @@ const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
 const qdb = require('quick.db');
+const { getUserProfile } = require('../utils');
 
 module.exports = async function App(ctx) {
   /*
@@ -25,7 +26,7 @@ module.exports = async function App(ctx) {
 };
 
 async function getAsync(key) {
-  // get Database
+  //  Database
   return await db.get(key);
 }
 
@@ -61,6 +62,11 @@ async function HandleMessage(ctx) {
   let msgText = ctx.event.message.text.toLowerCase();
   if (msgText == 'exportlog' && userid == OWNERID) {
     return ctx.sendText(await exportLog());
+  }
+  if (msgText.startsWith('getuser') && userid == OWNERID) {
+    if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
+    const id = msgText.split(' ')[1];
+    return ctx.sendText(JSON.stringify(getUserProfile(id)));
   }
   switch (msgText) {
     case 'exit':
