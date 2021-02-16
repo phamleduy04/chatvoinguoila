@@ -59,6 +59,12 @@ async function HandleFile(ctx) {
 async function HandleMessage(ctx) {
   let userid = ctx.event.rawEvent.sender.id;
   let data = await getAsync(userid);
+  if (cooldown.has(userid) && !data)
+    ctx.sendText('Bạn đang bị cooldown, vui lòng chờ trong giây lát!');
+  cooldown.add(userid);
+  setTimeout(() => {
+    cooldown.delete(userid);
+  }, ms('10s'));
   if (!data) {
     await standby(userid);
     await menu(ctx);
@@ -119,9 +125,6 @@ async function HandlePostBack(ctx) {
 
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
-  if (cooldown.has(id))
-    return ctx.sendText('Bạn vui lòng chờ trong giây lát nhé!');
-  cooldown.add(id);
   let data = await qdb.get('waitlist');
   let userData = await getAsync(id);
   if (!userData) userData = { status: 'standby', target: null };
@@ -150,9 +153,6 @@ async function wait(ctx) {
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: data } });
   }
-  setTimeout(() => {
-    cooldown.delete(id);
-  }, ms('10s'));
 }
 
 async function unmatch(ctx) {
