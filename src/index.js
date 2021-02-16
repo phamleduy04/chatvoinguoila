@@ -5,26 +5,35 @@ const isURL = require('is-url');
 const qdb = require('quick.db');
 
 module.exports = async function App(ctx) {
+  /*
+  Postback: GET_STARTED (lúc vừa sử dụng bot)
+            START_MATCHING (lúc bấm nút "tìm kiếm")
+  */
+  console.log(ctx.event.isSticker);
   if (ctx.event.isPostback) return HandlePostBack;
+  // isText: nội dung tin nhắn là string
   else if (ctx.event.isText) return HandleMessage;
+  // isImage: nội dung tin nhắn là hình ảnh (sticker cũng tính)
   else if (ctx.event.isImage) return HandleImage;
+  // isAudio: nội dung tin nhắn là voice message
   else if (ctx.event.isAudio) return HandleAudio;
+  // isVideo: nội dung tin nhắn là video
   else if (ctx.event.isVideo) return HandleVideo;
+  // isFile: nội dung tin nhắn là file
   else if (ctx.event.isFile) return HandleFile;
+
+  // tất cả các event đều được chuyển tới function ở dưới kèm theo param (ctx)
 };
 
 async function getAsync(key) {
+  // get Database
   return await db.get(key);
 }
 
 async function setAsync(key, value) {
+  // set Database
   return await db.set(key, value);
 }
-
-/*async function delAsync(key) {
-  return await db.delete(key);
-}
-*/
 
 async function HandleImage(ctx) {
   await handleAttachment(ctx, 'image', ctx.event.image.url);

@@ -3,7 +3,7 @@ module.exports = {
     driver: 'file',
     stores: {
       memory: {
-        maxSize: 500,
+        maxSize: 1000,
       },
       file: {
         dirname: '.sessions',
@@ -13,7 +13,7 @@ module.exports = {
   initialState: {},
   channels: {
     messenger: {
-      fields: ['messages', 'messaging_postbacks'],
+      fields: ['messages', 'messaging_postbacks', 'message_reactions'],
       enabled: true,
       path: '/webhooks/messenger',
       pageId: process.env.MESSENGER_PAGE_ID,
