@@ -9,7 +9,7 @@ module.exports = async function App(ctx) {
   Postback: GET_STARTED (lúc vừa sử dụng bot)
             START_MATCHING (lúc bấm nút "tìm kiếm")
   */
-  console.log(ctx.event.isSticker);
+  // console.log(ctx.event.isSticker);
   if (ctx.event.isPostback) return HandlePostBack;
   // isText: nội dung tin nhắn là string
   else if (ctx.event.isText) return HandleMessage;
