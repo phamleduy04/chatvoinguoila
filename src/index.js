@@ -2,6 +2,7 @@ const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
 const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
+const qdb = require('quick.db');
 
 module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
@@ -20,9 +21,10 @@ async function setAsync(key, value) {
   return await db.set(key, value);
 }
 
-async function delAsync(key) {
+/*async function delAsync(key) {
   return await db.delete(key);
 }
+*/
 
 async function HandleImage(ctx) {
   await handleAttachment(ctx, 'image', ctx.event.image.url);
@@ -95,12 +97,13 @@ async function HandlePostBack(ctx) {
 
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
-  let data = await getAsync('waitlist');
+  let data = await qdb.get('waitlist');
   let userData = await getAsync(id);
   if (!userData) userData = { status: 'standby', target: null };
   if (!data) {
     await standby(id);
-    await setAsync('waitlist', id);
+    // await setAsync('waitlist', id);
+    await qdb.set('waitlist', id);
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
@@ -114,7 +117,7 @@ async function wait(ctx) {
   } else {
     await setAsync(data, { status: 'matched', target: id });
     await setAsync(id, { status: 'matched', target: data });
-    await delAsync('waitlist');
+    await db.delete('waitlist');
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
     const logString = `${id} đã ghép đôi với ${data}`;
@@ -147,7 +150,8 @@ async function stop(ctx) {
   if (data.status !== 'matching')
     return ctx.sendText('Bạn hiện tại không nằm trong hàng chờ');
   else {
-    await delAsync('waitlist');
+    await qdb.delete('waitlist');
+    // await delAsync('waitlist');
     await standby(id);
     return ctx.sendText('Bạn đã ngừng tìm kiếm!');
   }
