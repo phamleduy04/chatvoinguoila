@@ -1,18 +1,8 @@
-let db;
-const redis = require('redis');
-const { promisify } = require('util');
+const { MONGODB, OWNERID } = process.env;
+const { Database } = require('quickmongo');
+const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
 const { logging, exportLog } = require('./util');
-if (process.env.REDISTOGO_URL) {
-  const rtg = require('url').parse(process.env.REDISTOGO_URL);
-  db = redis.createClient(rtg.port, rtg.hostname);
-  db.auth(rtg.auth.split(':')[1]);
-  console.log('Logged in to redis server!');
-} else db = redis.createClient(); // phải cài đặt redis trên máy trước
-
-const delAsync = promisify(db.del).bind(db);
-const getAsync = promisify(db.get).bind(db);
-const setAsync = promisify(db.set).bind(db);
 
 module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
@@ -23,11 +13,19 @@ module.exports = async function App(ctx) {
   else if (ctx.event.isFile) return HandleFile;
 };
 
+async function getAsync(key) {
+  return await db.get(key);
+}
+
+async function setAsync(key, value) {
+  return await db.set(key, value);
+}
+
+async function delAsync(key) {
+  return await db.delete(key);
+}
+
 async function HandleImage(ctx) {
-  /*
-  let stickerID = ctx.event.rawEvent.message.attachments[0].payload.stickerId;
-  if (stickerID) return await handleAttachment(ctx, 'sticker', stickerID);
-  */
   await handleAttachment(ctx, 'image', ctx.event.image.url);
 }
 
@@ -51,7 +49,7 @@ async function HandleMessage(ctx) {
     await menu(ctx);
   } else data = toobj(data);
   let msgText = ctx.event.message.text.toLowerCase();
-  if (msgText == 'exportlog' && userid == process.env.OWNERID) {
+  if (msgText == 'exportlog' && userid == OWNERID) {
     return ctx.sendText(await exportLog());
   }
   switch (msgText) {
@@ -211,10 +209,6 @@ async function handleAttachment(ctx, type, url) {
       case 'file':
         await ctx.sendFile(url, { recipient: { id: data.target } });
         break;
-      /*
-      case 'sticker':
-        ctx.sendFile({ stickerId: url }, { recipient: { id: data.target } });
-      */
     }
   }
 }
