@@ -5,6 +5,7 @@ const isURL = require('is-url');
 const qdb = require('quick.db');
 const { getUserProfile } = require('../utils');
 // cooldown system for matching system
+// eslint-disable-next-line no-undef
 const cooldown = new Set();
 const ms = require('ms');
 
@@ -150,7 +151,7 @@ async function wait(ctx) {
   }
   setTimeout(() => {
     cooldown.delete(id);
-  }, ms('30s'));
+  }, ms('15s'));
 }
 
 async function unmatch(ctx) {
