@@ -9,7 +9,6 @@ module.exports = async function App(ctx) {
   Postback: GET_STARTED (lúc vừa sử dụng bot)
             START_MATCHING (lúc bấm nút "tìm kiếm")
   */
-  // console.log(ctx.event.isSticker);
   if (ctx.event.isPostback) return HandlePostBack;
   // isText: nội dung tin nhắn là string
   else if (ctx.event.isText) return HandleMessage;
@@ -33,6 +32,7 @@ async function getAsync(key) {
 async function setAsync(key, value) {
   // set Database
   return await db.set(key, value);
+  // return await db.update(key, value);
 }
 
 async function HandleImage(ctx) {
@@ -204,6 +204,7 @@ async function handleAttachment(ctx, type, url) {
       case 'image':
         await ctx.sendImage(url, { recipient: { id: data.target } });
         break;
+
       case 'video':
         await ctx.sendVideo(url, { recipient: { id: data.target } });
         break;
