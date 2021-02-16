@@ -66,8 +66,7 @@ async function HandleMessage(ctx) {
   if (msgText.startsWith('getuser') && userid == OWNERID) {
     if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
     const id = msgText.split(' ')[1];
-    console.log(await getUserProfile(id));
-    return ctx.sendText('test');
+    return await getUserProfile(ctx, id);
   }
   switch (msgText) {
     case 'exit':
@@ -82,6 +81,9 @@ async function HandleMessage(ctx) {
       break;
     case 'menu':
       await menu(ctx);
+      break;
+    case 'search':
+      await wait(ctx);
       break;
     default:
       {

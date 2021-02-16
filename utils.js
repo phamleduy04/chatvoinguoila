@@ -3,14 +3,14 @@ const { getClient } = require('bottender');
 const client = getClient('messenger');
 
 module.exports = {
-  getUserProfile: async function (userID) {
-    if (!userID) return 'not found';
+  getUserProfile: async function (ctx, userID) {
+    if (!userID) return ctx.sendText('userID undefined');
     try {
       const user = await client.getUserProfile(userID);
-      return JSON.stringify(user);
+      return ctx.sendText(JSON.stringify(user));
     } catch (e) {
       console.error(e);
-      return 'not found';
+      return ctx.sendText('error, check console!');
     }
   },
 };
