@@ -4,6 +4,9 @@ const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
 const qdb = require('quick.db');
 const { getUserProfile } = require('../utils');
+// cooldown system for matching system
+const cooldown = new Set();
+const ms = require('ms');
 
 module.exports = async function App(ctx) {
   /*
@@ -115,6 +118,8 @@ async function HandlePostBack(ctx) {
 
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
+  if (cooldown.has(id)) return ctx.sendText('Bạn vui lòng chờ trong giây lát');
+  cooldown.add(id);
   let data = await qdb.get('waitlist');
   let userData = await getAsync(id);
   if (!userData) userData = { status: 'standby', target: null };
@@ -143,6 +148,9 @@ async function wait(ctx) {
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: data } });
   }
+  setTimeout(() => {
+    cooldown.delete(id);
+  }, ms('30s'));
 }
 
 async function unmatch(ctx) {
