@@ -66,7 +66,8 @@ async function HandleMessage(ctx) {
   if (msgText.startsWith('getuser') && userid == OWNERID) {
     if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
     const id = msgText.split(' ')[1];
-    return ctx.sendText(await getUserProfile(id));
+    console.log(await getUserProfile(id));
+    return ctx.sendText('test');
   }
   switch (msgText) {
     case 'exit':
