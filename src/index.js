@@ -45,7 +45,7 @@ async function HandleFile(ctx) {
 async function HandleMessage(ctx) {
   let userid = ctx.event.rawEvent.sender.id;
   let data = await getAsync(userid);
-  if (!data || data === null) {
+  if (!data) {
     await standby(userid);
     await menu(ctx);
   }
