@@ -98,7 +98,7 @@ async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let data = await getAsync('waitlist');
   let userData = await getAsync(id);
-  if (!userData) userData = { stauts: 'standby', target: null };
+  if (!userData) userData = { status: 'standby', target: null };
   if (!data) {
     await standby(id);
     await setAsync('waitlist', id);
