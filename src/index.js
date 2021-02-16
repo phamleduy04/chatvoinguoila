@@ -182,11 +182,10 @@ async function handleAttachment(ctx, type, url) {
   if (!isURL(url)) return;
   const id = ctx.event.rawEvent.sender.id;
   let data = await getAsync(id);
-  if (!data || data == null) {
+  if (!data) {
     await standby(id);
     menu(ctx);
-  }
-  if (data.target) {
+  } else if (data.target) {
     // chờ fix
     switch (type.toLowerCase()) {
       case 'image':
