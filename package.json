@@ -11,7 +11,7 @@
     "setprofile": "npx bottender messenger profile set",
     "setwebhook": "npx bottender messenger webhook set",
     "getprofile": "npx bottender messenger profile get",
-    "pm2": "pm2-runtime start npm -- run start-bot --env production"
+    "pm2": "pm2-runtime start npm -- run start-bot"
   },
   "dependencies": {
     "bottender": "1.4.10",
