@@ -22,10 +22,12 @@
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "node-fetch": "^2.6.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.0.5",
+    "quickmongo": "^3.0.0",
     "redis": "^3.0.2",
-    "vultrex.haste": "^1.0.1",
-    "npm-run-all": "^4.1.5"
+    "sourcebin": "^4.0.2",
+    "vultrex.haste": "^1.0.1"
   },
   "devDependencies": {
     "all-contributors-cli": "^6.17.2"

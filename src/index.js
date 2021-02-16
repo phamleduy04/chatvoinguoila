@@ -1,18 +1,7 @@
-let db;
-const redis = require('redis');
-const { promisify } = require('util');
+const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
+const { Database } = require('quickmongo');
+const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
-const { logging, exportLog } = require('./util');
-if (process.env.REDISTOGO_URL) {
-  const rtg = require('url').parse(process.env.REDISTOGO_URL);
-  db = redis.createClient(rtg.port, rtg.hostname);
-  db.auth(rtg.auth.split(':')[1]);
-  console.log('Logged in to redis server!');
-} else db = redis.createClient(); // phải cài đặt redis trên máy trước
-
-const delAsync = promisify(db.del).bind(db);
-const getAsync = promisify(db.get).bind(db);
-const setAsync = promisify(db.set).bind(db);
 
 module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
@@ -23,11 +12,19 @@ module.exports = async function App(ctx) {
   else if (ctx.event.isFile) return HandleFile;
 };
 
+async function getAsync(key) {
+  return await db.get(key);
+}
+
+async function setAsync(key, value) {
+  return await db.set(key, value);
+}
+
+async function delAsync(key) {
+  return await db.delete(key);
+}
+
 async function HandleImage(ctx) {
-  /*
-  let stickerID = ctx.event.rawEvent.message.attachments[0].payload.stickerId;
-  if (stickerID) return await handleAttachment(ctx, 'sticker', stickerID);
-  */
   await handleAttachment(ctx, 'image', ctx.event.image.url);
 }
 
@@ -49,9 +46,9 @@ async function HandleMessage(ctx) {
   if (!data || data === null) {
     await standby(userid);
     await menu(ctx);
-  } else data = toobj(data);
+  }
   let msgText = ctx.event.message.text.toLowerCase();
-  if (msgText == 'exportlog' && userid == process.env.OWNERID) {
+  if (msgText == 'exportlog' && userid == OWNERID) {
     return ctx.sendText(await exportLog());
   }
   switch (msgText) {
@@ -100,14 +97,14 @@ async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let data = await getAsync('waitlist');
   let userData = await getAsync(id);
-  if (userData !== null) userData = toobj(userData);
-  if (!data || data == 'null') {
+  if (!userData) userData = { status: 'standby', target: null };
+  if (!data) {
     await standby(id);
     await setAsync('waitlist', id);
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
-    await setAsync(id, tostr({ status: 'matching', target: null }));
+    await setAsync(id, { status: 'matching', target: null });
   } else if (data == id)
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
@@ -115,12 +112,13 @@ async function wait(ctx) {
   else if (userData.status !== 'standby') {
     return ctx.sendText('Bạn đang ghép với ai đó.');
   } else {
-    await setAsync(data, tostr({ status: 'matched', target: id }));
-    await setAsync(id, tostr({ status: 'matched', target: data }));
+    await setAsync(data, { status: 'matched', target: id });
+    await setAsync(id, { status: 'matched', target: data });
     await delAsync('waitlist');
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
-    logging(`${id} đã ghép đôi với ${data}`);
+    const logString = `${id} đã ghép đôi với ${data}`;
+    await logging(logString);
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: data } });
   }
@@ -128,13 +126,13 @@ async function wait(ctx) {
 
 async function unmatch(ctx) {
   const id = ctx.event.rawEvent.sender.id;
-  const data = toobj(await getAsync(id));
+  const data = await getAsync(id);
   if (data.status !== 'matched')
     return ctx.sendText('Bạn hiện tại không có match với ai!');
   else {
     await standby(data.target);
     await standby(id);
-    logging(`${id} đã ngắt kết nói với ${data.target}`);
+    await logging(`${id} đã ngắt kết nói với ${data.target}`);
     await ctx.sendText('Đã ngắt kết nối với đối phương!');
     await ctx.sendMessage(
       { text: 'Người bên kia đã ngắt kết nối với bạn 😢.' },
@@ -145,7 +143,7 @@ async function unmatch(ctx) {
 
 async function stop(ctx) {
   const id = ctx.event.rawEvent.sender.id;
-  const data = toobj(await getAsync(id));
+  const data = await getAsync(id);
   if (data.status !== 'matching')
     return ctx.sendText('Bạn hiện tại không nằm trong hàng chờ');
   else {
@@ -154,6 +152,7 @@ async function stop(ctx) {
     return ctx.sendText('Bạn đã ngừng tìm kiếm!');
   }
 }
+
 async function menu(ctx) {
   await ctx.sendButtonTemplate('Chọn các nút ở dưới để sử dụng bot!', [
     {
@@ -174,28 +173,19 @@ async function menu(ctx) {
   ]);
 }
 
-function tostr(obj) {
-  return JSON.stringify(obj);
-}
-
-function toobj(str) {
-  return JSON.parse(str);
-}
-
 async function standby(id) {
-  await setAsync(id, tostr({ status: 'standby', target: null }));
+  await setAsync(id, { status: 'standby', target: null });
 }
 
 async function handleAttachment(ctx, type, url) {
   if (!type) return;
-  if (!isURL(url)) return; // if (!isURL(url) && type !== 'sticker') return;
+  if (!isURL(url)) return;
   const id = ctx.event.rawEvent.sender.id;
   let data = await getAsync(id);
   if (!data || data == null) {
     await standby(id);
     menu(ctx);
   }
-  data = toobj(data);
   if (data.target) {
     // chờ fix
     switch (type.toLowerCase()) {
@@ -211,12 +201,38 @@ async function handleAttachment(ctx, type, url) {
       case 'file':
         await ctx.sendFile(url, { recipient: { id: data.target } });
         break;
-      /*
-      case 'sticker':
-        ctx.sendFile({ stickerId: url }, { recipient: { id: data.target } });
-      */
     }
   }
 }
 
-if (process.env.TYPE_RUN == 'ci') process.exit();
+async function exportLog() {
+  let data = await db.get('log');
+  data = data.join('\n');
+  const { create } = require('sourcebin');
+  const bin = await create(
+    [
+      {
+        content: data,
+        language: 'text',
+      },
+    ],
+    {
+      title: 'User log',
+      description: 'User log',
+    }
+  );
+  return bin.url;
+}
+
+async function logging(text) {
+  if (!text) return;
+  const moment = require('moment-timezone');
+  const timenow = moment()
+    .tz(TIMEZONE || 'America/Chicago')
+    .format('lll');
+  const string = `${timenow} || ${text}`;
+  console.log(string);
+  await db.push('log', string);
+}
+
+if (TYPE_RUN == 'ci') process.exit();

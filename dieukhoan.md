@@ -1,11 +1,12 @@
-
 **Ngày cập nhật: 19/08/2020 (DD/MM/YYYY)**
 
 ## Điều khoản dịch vụ
-Cảm ơn các bạn đã sử dụng các sản phẩm và dịch vụ của mình. Dịch vụ được cung cấp bởi mình. [Thông tin liên hệ](https://github.com/phamleduy04/chatvoinguoila/blob/master/dieukhoan.md#th%C3%B4ng-tin-li%C3%AAn-h%E1%BB%87) sẽ được kèm ở dưới cùng.
+Cảm ơn các bạn đã sử dụng các sản phẩm và dịch vụ của mình. Dịch vụ được cung cấp bởi [mình](https://github.com/phamleduy04). [Thông tin liên hệ](https://github.com/phamleduy04/chatvoinguoila/blob/master/dieukhoan.md#th%C3%B4ng-tin-li%C3%AAn-h%E1%BB%87) sẽ được kèm ở dưới cùng.
 
 ## Những thông tin sẽ được thu thập
-- Thông tin cá nhân (Tên, ID facebook)
+- Tên của bạn
+- ID Facebook của bạn (có thể dùng ID này để tìm ra tên facebook của bạn)
+- Nội dung tin nhắn 
 
 ## Mục đích và phạm vi thu thập thông tin
 Các thông tin cá nhân của người dùng có thể được mình sử dụng vào những mục đích hợp pháp dưới đây

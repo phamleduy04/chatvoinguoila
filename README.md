@@ -19,34 +19,21 @@
 9. Lấy APP_ID và APP_SECRET (Chọn Settings -> Basic) 
 10. Phần VERIFY_TOKEN sẽ là bạn tự đặt. 
 11. Đổi tên file .env.example thành .env.
-12. Setup Redis (có 2 cách)
-- Cách 1: Chạy Redis trên máy tính của chính bạn. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-c%C3%A0i-%C4%91%E1%BA%B7t-redis)
-- Cách 2: Chạy Redis trên Heroku. [Hướng dẫn](https://github.com/phamleduy04/chatvoinguoila#c%C3%A1ch-setup-redis-tr%C3%AAn-heroku)
+12. Setup mongodb (chạy trên máy hoặc sử dụng cluster)
 13. Thay đổi file .env
+
+**Lưu ý**: Nếu chạy trên máy thì không cần add dòng `MONGODB=` còn nếu sử dụng cluster thì add vào url tới database!
 ```
 MESSENGER_PAGE_ID=
 MESSENGER_ACCESS_TOKEN= 
 MESSENGER_APP_ID=  
 MESSENGER_APP_SECRET=  
 MESSENGER_VERIFY_TOKEN=
+MONGODB=
 ``` 
 14. Chạy lệnh `npm run dev`
 15. Sau đó tạo 1 terminal mới và nhập lệnh `npm run setprofile` và `npm run setwebhook`
-## Cách cài đặt Redis
-**Nếu các bạn đã sử dụng Redis trên Heroku thì không cần bước này**
-- Windows: [Link hướng dẫn](https://redislabs.com/blog/redis-on-windows-10/)
-- Linux: [Link tải](https://redis.io/download)
 
-
-## Cách setup Redis trên Heroku
-**Nếu các bạn đã cài đặt Redis thì không cần bước này**
-1. Vào [Heroku](https://www.heroku.com/) và tạo 1 app
-2. Chọn phần "Resources" sau đó add addon có tên là "Redis To Go"
-3. Sau khi add xong thì vào phần "Settings" -> "Reveal Config Vars"
-4. Copy phần REDISTOGO_URL vào file .env
-```
-REDISTOGO_URL=
-```
 ## Báo lỗi và góp ý
 Các bạn có thể tạo [PR (Pull request)](https://github.com/phamleduy04/chatvoinguoila/pulls) hoặc [issue](https://github.com/phamleduy04/chatvoinguoila/issues).
 
