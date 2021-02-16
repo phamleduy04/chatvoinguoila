@@ -110,7 +110,7 @@ async function wait(ctx) {
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
     );
-  else if (userData.status !== 'standby') {
+  else if (userData.status !== 'matching') {
     return ctx.sendText('Bạn đang ghép với ai đó.');
   } else {
     await setAsync(data, { status: 'matched', target: id });
