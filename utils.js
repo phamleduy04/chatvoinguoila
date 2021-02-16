@@ -7,8 +7,7 @@ module.exports = {
     if (!userID) return 'not found';
     try {
       client.getUserProfile(userID).then((user) => {
-        console.log(user);
-        return user;
+        return JSON.stringify(user);
       });
     } catch (e) {
       console.error(e);
