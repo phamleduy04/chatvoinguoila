@@ -13,4 +13,8 @@ module.exports = {
       return ctx.sendText('error, check console!');
     }
   },
+  sleep: async function (ms) {
+    // eslint-disable-next-line no-undef
+    return new Promise((res) => setTimeout(res, ms));
+  },
 };

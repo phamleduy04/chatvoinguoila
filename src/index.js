@@ -3,7 +3,7 @@ const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
 const qdb = require('quick.db');
-const { getUserProfile } = require('../utils');
+const { getUserProfile, sleep } = require('../utils');
 // cooldown system for matching system
 // eslint-disable-next-line no-undef
 const cooldown = new Set();
@@ -131,10 +131,11 @@ async function wait(ctx) {
   if (!data) {
     await standby(id);
     // await setAsync('waitlist', id);
-    await qdb.set('waitlist', id);
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
+    await sleep(2000);
+    await qdb.set('waitlist', id);
     await setAsync(id, { status: 'matching', target: null });
   } else if (data == id)
     return ctx.sendText(
