@@ -1,6 +1,6 @@
-const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
-const { Database } = require('quickmongo');
-const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
+// const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
+// const { Database } = require('quickmongo');
+// const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
 const qdb = require('quick.db');
 const { getUserProfile, sleep } = require('../utils');
@@ -81,11 +81,14 @@ async function HandleMessage(ctx) {
         await getUserProfile(ctx, id);
         break;
       }
+      /*
       case 'backup': {
         await db.deleteAll();
         await db.import(db.all(), { unique: true });
         await ctx.sendText('backup done!');
+        break;
       }
+      */
     }
   }
   switch (msgText) {
