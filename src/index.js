@@ -307,7 +307,7 @@ setInterval(async () => {
   const stat = await db.get('stats');
   if (!stat) await db.set('stats', stats);
   else {
-    for (key in stats) {
+    for (const key in stats) {
       await db.add(`stats.${key}`, stats[key]);
       await sleep(500);
       stats = {
