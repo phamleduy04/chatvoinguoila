@@ -1,4 +1,4 @@
-// const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
+const { OWNERID, TIMEZONE, TYPE_RUN } = process.env;
 // const { Database } = require('quickmongo');
 // const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const isURL = require('is-url');
@@ -159,7 +159,7 @@ async function wait(ctx) {
   } else {
     await setAsync(data, { status: 'matched', target: id });
     await setAsync(id, { status: 'matched', target: data });
-    await db.delete('waitlist');
+    await qdb.delete('waitlist');
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
     const logString = `${id} đã ghép đôi với ${data}`;
@@ -252,7 +252,7 @@ async function handleAttachment(ctx, type, url) {
 }
 
 async function exportLog() {
-  let data = await db.get('log');
+  let data = await qdb.get('log');
   data = data.join('\n');
   const { create } = require('sourcebin');
   const bin = await create(
