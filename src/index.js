@@ -32,12 +32,12 @@ module.exports = async function App(ctx) {
 };
 
 async function getAsync(key) {
-  await sleep(1000);
+  await sleep(500);
   return await db.get(key);
 }
 
 async function setAsync(key, value) {
-  await sleep(1000);
+  await sleep(500);
   return await db.set(key, value);
   // return await db.update(key, value);
 }
