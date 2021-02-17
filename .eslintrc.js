@@ -12,6 +12,7 @@ module.exports = {
       {
         trailingComma: 'es5',
         singleQuote: true,
+        'no-undef': false,
       },
     ],
   },

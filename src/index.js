@@ -1,11 +1,13 @@
-const { OWNERID, TIMEZONE, TYPE_RUN } = process.env;
-// const { Database } = require('quickmongo');
-// const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
+/* eslint-disable no-undef */
+const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
+const { Database } = require('quickmongo');
+const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
+const { getUserProfile, sleep } = require('../utils');
 const isURL = require('is-url');
 const qdb = require('quick.db');
-const { getUserProfile, sleep } = require('../utils');
+global.waitList = null;
+
 // cooldown system for matching system
-// eslint-disable-next-line no-undef
 const cooldown = new Set();
 const ms = require('ms');
 
@@ -30,13 +32,13 @@ module.exports = async function App(ctx) {
 };
 
 async function getAsync(key) {
-  //  Database
-  return await qdb.get(key);
+  await sleep(1000);
+  return await db.get(key);
 }
 
 async function setAsync(key, value) {
-  // set Database
-  return await qdb.set(key, value);
+  await sleep(1000);
+  return await db.set(key, value);
   // return await db.update(key, value);
 }
 
@@ -83,8 +85,10 @@ async function HandleMessage(ctx) {
       }
       /*
       case 'backup': {
+        const log = await db.get('log');
         await db.deleteAll();
         await db.import(db.all(), { unique: true });
+        await db.set('log', log);
         await ctx.sendText('backup done!');
         break;
       }
@@ -138,34 +142,31 @@ async function HandlePostBack(ctx) {
 
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
-  let data = await qdb.get('waitlist');
   let userData = await getAsync(id);
-  if (!userData) userData = { status: 'standby', target: null };
-  if (!data) {
-    await standby(id);
-    // await setAsync('waitlist', id);
+  if (!userData) userData = await standby(id);
+  if (!waitList) {
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
     await sleep(2000);
-    await qdb.set('waitlist', id);
+    waitList = id;
     await setAsync(id, { status: 'matching', target: null });
-  } else if (data == id)
+  } else if (userData.status == 'matching')
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
     );
-  else if (userData.status !== 'standby') {
-    return ctx.sendText('Bạn đang ghép với ai đó.');
-  } else {
-    await setAsync(data, { status: 'matched', target: id });
-    await setAsync(id, { status: 'matched', target: data });
-    await qdb.delete('waitlist');
+  else {
+    const matched = waitList;
+    waitList = null;
+    await sleep(500);
+    await setAsync(matched, { status: 'matched', target: id });
+    await setAsync(id, { status: 'matched', target: matched });
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
-    const logString = `${id} đã ghép đôi với ${data}`;
+    const logString = `${id} đã ghép đôi với ${matched}`;
     await logging(logString);
     await ctx.sendText(string);
-    await ctx.sendMessage({ text: string }, { recipient: { id: data } });
+    await ctx.sendMessage({ text: string }, { recipient: { id: matched } });
   }
 }
 
@@ -193,7 +194,6 @@ async function stop(ctx) {
     return ctx.sendText('Bạn hiện tại không nằm trong hàng chờ');
   else {
     await qdb.delete('waitlist');
-    // await delAsync('waitlist');
     await standby(id);
     return ctx.sendText('Bạn đã ngừng tìm kiếm!');
   }
@@ -228,16 +228,12 @@ async function handleAttachment(ctx, type, url) {
   if (!isURL(url)) return;
   const id = ctx.event.rawEvent.sender.id;
   let data = await getAsync(id);
-  if (!data) {
-    await standby(id);
-    menu(ctx);
-  } else if (data.target) {
-    // chờ fix
+  if (!data) menu(ctx);
+  else if (data.target) {
     switch (type.toLowerCase()) {
       case 'image':
         await ctx.sendImage(url, { recipient: { id: data.target } });
         break;
-
       case 'video':
         await ctx.sendVideo(url, { recipient: { id: data.target } });
         break;
