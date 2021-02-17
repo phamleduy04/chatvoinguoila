@@ -72,6 +72,7 @@ async function HandleFile(ctx) {
 }
 
 async function HandleMessage(ctx) {
+  await sleep(500);
   let userid = ctx.event.rawEvent.sender.id;
   stats.messages++;
   let data = await getAsync(userid);
