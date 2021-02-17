@@ -101,14 +101,18 @@ async function HandleMessage(ctx) {
       const allUser = allDatabase
         .filter((el) => !isNaN(el.ID))
         .map((el) => el.ID);
-      allUser.forEach(async (user) => {
-        await ctx.sendMessage(
-          { text: `Thông báo từ admin: ${content}` },
-          { recipient: { id: user } }
-        );
-        console.log(`Đã thông báo cho ${user}`);
-        await sleep(1000);
-      });
+      for (let i = 0; i < allUser.length; i++) {
+        const user = allUser[i];
+        try {
+          await ctx.sendMessage(
+            { text: `Thông báo từ admin: ${content}` },
+            { recipient: { id: user } }
+          );
+          console.log(`Đã thông báo cho ${user}`);
+          await sleep(2000);
+          // eslint-disable-next-line no-empty
+        } catch (e) {}
+      }
       return;
     }
     switch (msgText) {
