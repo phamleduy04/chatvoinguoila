@@ -100,7 +100,7 @@ async function HandleMessage(ctx) {
           { recipient: { id: user } }
         );
         console.log(`Đã thông báo cho ${user}`);
-        await sleep(500);
+        await sleep(1000);
       });
       return;
     }
@@ -174,7 +174,7 @@ async function wait(ctx) {
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
-    await sleep(2000);
+    await sleep(1000);
     waitList = id;
     await setAsync(id, { status: 'matching', target: null });
   } else if (userData && userData.status == 'matching')
