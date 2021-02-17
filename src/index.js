@@ -73,7 +73,6 @@ async function HandleFile(ctx) {
 }
 
 async function HandleMessage(ctx) {
-  await sleep(5000);
   let userid = ctx.event.rawEvent.sender.id;
   stats.messages++;
   let data = await getAsync(userid);
@@ -89,6 +88,7 @@ async function HandleMessage(ctx) {
   setTimeout(() => {
     cooldown.delete(userid);
   }, ms('10s'));
+  await sleep(5000);
   if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
   if (userid == OWNERID) {
