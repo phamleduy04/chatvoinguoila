@@ -31,12 +31,12 @@ module.exports = async function App(ctx) {
 
 async function getAsync(key) {
   //  Database
-  return await db.get(key);
+  return await qdb.get(key);
 }
 
 async function setAsync(key, value) {
   // set Database
-  return await db.set(key, value);
+  return await qdb.set(key, value);
   // return await db.update(key, value);
 }
 
@@ -70,13 +70,23 @@ async function HandleMessage(ctx) {
     await menu(ctx);
   }
   let msgText = ctx.event.message.text.toLowerCase();
-  if (msgText == 'exportlog' && userid == OWNERID) {
-    return ctx.sendText(await exportLog());
-  }
-  if (msgText.startsWith('getuser') && userid == OWNERID) {
-    if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
-    const id = msgText.split(' ')[1];
-    return await getUserProfile(ctx, id);
+  if (userid == OWNERID) {
+    switch (msgText) {
+      case 'exportlog':
+        ctx.sendText(await exportLog());
+        break;
+      case 'getuser': {
+        if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
+        const id = msgText.split(' ')[1];
+        await getUserProfile(ctx, id);
+        break;
+      }
+      case 'backup': {
+        await db.deleteAll();
+        await db.import(db.all(), { unique: true });
+        await ctx.sendText('backup done!');
+      }
+    }
   }
   switch (msgText) {
     case 'exit':
@@ -265,7 +275,7 @@ async function logging(text) {
     .format('lll');
   const string = `${timenow} || ${text}`;
   console.log(string);
-  await db.push('log', string);
+  await qdb.push('log', string);
 }
 
 if (TYPE_RUN == 'ci') process.exit();
