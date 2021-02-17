@@ -67,21 +67,16 @@ async function HandleMessage(ctx) {
   setTimeout(() => {
     cooldown.delete(userid);
   }, ms('10s'));
-  if (!data) {
-    await standby(userid);
-    await menu(ctx);
-  }
+  if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
   if (userid == OWNERID) {
     switch (msgText) {
       case 'exportlog':
-        ctx.sendText(await exportLog());
-        break;
+        return ctx.sendText(await exportLog());
       case 'getuser': {
         if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
         const id = msgText.split(' ')[1];
-        await getUserProfile(ctx, id);
-        break;
+        return await getUserProfile(ctx, id);
       }
       /*
       case 'backup': {
@@ -97,21 +92,16 @@ async function HandleMessage(ctx) {
   }
   switch (msgText) {
     case 'exit':
-      unmatch(ctx);
-      break;
+      return unmatch(ctx);
     case 'stop': {
-      stop(ctx);
-      break;
+      return stop(ctx);
     }
     case 'id':
-      ctx.sendText(`ID của bạn là: ${userid}`);
-      break;
+      return ctx.sendText(`ID của bạn là: ${userid}`);
     case 'menu':
-      await menu(ctx);
-      break;
+      return await menu(ctx);
     case 'search':
-      await wait(ctx);
-      break;
+      return await wait(ctx);
     default:
       {
         if (data && data.target)
@@ -151,7 +141,7 @@ async function wait(ctx) {
     await sleep(2000);
     waitList = id;
     await setAsync(id, { status: 'matching', target: null });
-  } else if (userData.status == 'matching')
+  } else if (userData && userData.status == 'matching')
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
     );
