@@ -7,6 +7,15 @@ const isURL = require('is-url');
 const qdb = require('quick.db');
 global.waitList = null;
 
+let stats = {
+  messages: 0,
+  matching: 0,
+  images: 0,
+  videos: 0,
+  audio: 0,
+  file: 0,
+};
+
 // cooldown system for matching system
 const cooldown = new Set();
 const ms = require('ms');
@@ -43,23 +52,29 @@ async function setAsync(key, value) {
 }
 
 async function HandleImage(ctx) {
+  stats.images++;
   await handleAttachment(ctx, 'image', ctx.event.image.url);
 }
 
 async function HandleAudio(ctx) {
+  stats.audio++;
   await handleAttachment(ctx, 'audio', ctx.event.audio.url);
 }
 
 async function HandleVideo(ctx) {
+  stats.videos++;
   await handleAttachment(ctx, 'video', ctx.event.video.url);
 }
 
 async function HandleFile(ctx) {
+  stats.file++;
   await handleAttachment(ctx, 'file', ctx.event.file.url);
 }
 
 async function HandleMessage(ctx) {
   let userid = ctx.event.rawEvent.sender.id;
+  stats.messages++;
+  await pushUser(userid);
   let data = await getAsync(userid);
   if (cooldown.has(userid) && !data)
     ctx.sendText('Bạn đang bị cooldown, vui lòng chờ trong giây lát!');
@@ -69,6 +84,7 @@ async function HandleMessage(ctx) {
   }, ms('10s'));
   if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
+  console.log(userid == OWNERID);
   if (userid == OWNERID) {
     switch (msgText) {
       case 'exportlog':
@@ -78,16 +94,26 @@ async function HandleMessage(ctx) {
         const id = msgText.split(' ')[1];
         return await getUserProfile(ctx, id);
       }
-      /*
-      case 'backup': {
-        const log = await db.get('log');
-        await db.deleteAll();
-        await db.import(db.all(), { unique: true });
-        await db.set('log', log);
-        await ctx.sendText('backup done!');
-        break;
+      case 'sendall': {
+        if (!msgText.includes(' '))
+          return ctx.sendText('Nhập nội dung cần thông báo');
+        const content = msgText.split(' ').slice(1).join(' ');
+        const allUser = await db.get('allUser');
+        allUser.forEach((user) => {
+          ctx.sendMessage({ text: content }, { recipient: { id: user } });
+        });
+        console.log(`Đã send tin nhắn cho ${user}`);
+        await sleep(500);
+        return;
       }
-      */
+      case 'getstat': {
+        const stat = await db.get('stats');
+        if (!stat) return ctx.sendText('Chờ bot update database!');
+        const { messages, matching, images, videos, audio, file } = stat;
+        return ctx.sendText(
+          `Bot hiện tại có ${messages} tin nhắn đã được gởi, ${matching} lần match, ${images} số lần gởi ảnh, ${videos} lần gởi video, ${audio} lần gởi voice message và ${file} lần gởi file!`
+        );
+      }
     }
   }
   switch (msgText) {
@@ -154,6 +180,7 @@ async function wait(ctx) {
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
     const logString = `${id} đã ghép đôi với ${matched}`;
+    stats.matching++;
     await logging(logString);
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: matched } });
@@ -237,6 +264,11 @@ async function handleAttachment(ctx, type, url) {
   }
 }
 
+async function pushUser(id) {
+  const arr = await db.get('allUser');
+  if (!id && arr.includes(id)) return;
+  await db.push('allUser', id);
+}
 async function exportLog() {
   let data = await qdb.get('log');
   data = data.join('\n');
@@ -266,5 +298,20 @@ async function logging(text) {
   console.log(string);
   await qdb.push('log', string);
 }
+
+setInterval(async () => {
+  for (key in stats) {
+    await db.add(`stats.${key}`, stats[key]);
+    await sleep(500);
+    stats = {
+      messages: 0,
+      matching: 0,
+      images: 0,
+      videos: 0,
+      audio: 0,
+      file: 0,
+    };
+  }
+}, ms('10m'));
 
 if (TYPE_RUN == 'ci') process.exit();
