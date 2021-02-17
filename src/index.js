@@ -1,11 +1,13 @@
+/* eslint-disable no-undef */
 const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
 const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
+const { getUserProfile, sleep } = require('../utils');
 const isURL = require('is-url');
 const qdb = require('quick.db');
-const { getUserProfile } = require('../utils');
+global.waitList = null;
+
 // cooldown system for matching system
-// eslint-disable-next-line no-undef
 const cooldown = new Set();
 const ms = require('ms');
 
@@ -30,12 +32,12 @@ module.exports = async function App(ctx) {
 };
 
 async function getAsync(key) {
-  //  Database
+  await sleep(1000);
   return await db.get(key);
 }
 
 async function setAsync(key, value) {
-  // set Database
+  await sleep(1000);
   return await db.set(key, value);
   // return await db.update(key, value);
 }
@@ -59,36 +61,47 @@ async function HandleFile(ctx) {
 async function HandleMessage(ctx) {
   let userid = ctx.event.rawEvent.sender.id;
   let data = await getAsync(userid);
-  if (!data) {
-    await standby(userid);
-    await menu(ctx);
-  }
+  if (cooldown.has(userid) && !data)
+    ctx.sendText('Bạn đang bị cooldown, vui lòng chờ trong giây lát!');
+  cooldown.add(userid);
+  setTimeout(() => {
+    cooldown.delete(userid);
+  }, ms('10s'));
+  if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
-  if (msgText == 'exportlog' && userid == OWNERID) {
-    return ctx.sendText(await exportLog());
-  }
-  if (msgText.startsWith('getuser') && userid == OWNERID) {
-    if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
-    const id = msgText.split(' ')[1];
-    return await getUserProfile(ctx, id);
+  if (userid == OWNERID) {
+    switch (msgText) {
+      case 'exportlog':
+        return ctx.sendText(await exportLog());
+      case 'getuser': {
+        if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
+        const id = msgText.split(' ')[1];
+        return await getUserProfile(ctx, id);
+      }
+      /*
+      case 'backup': {
+        const log = await db.get('log');
+        await db.deleteAll();
+        await db.import(db.all(), { unique: true });
+        await db.set('log', log);
+        await ctx.sendText('backup done!');
+        break;
+      }
+      */
+    }
   }
   switch (msgText) {
     case 'exit':
-      unmatch(ctx);
-      break;
+      return unmatch(ctx);
     case 'stop': {
-      stop(ctx);
-      break;
+      return stop(ctx);
     }
     case 'id':
-      ctx.sendText(`ID của bạn là: ${userid}`);
-      break;
+      return ctx.sendText(`ID của bạn là: ${userid}`);
     case 'menu':
-      await menu(ctx);
-      break;
+      return await menu(ctx);
     case 'search':
-      await wait(ctx);
-      break;
+      return await wait(ctx);
     default:
       {
         if (data && data.target)
@@ -119,40 +132,32 @@ async function HandlePostBack(ctx) {
 
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
-  if (cooldown.has(id))
-    return ctx.sendText('Bạn vui lòng chờ trong giây lát nhé!');
-  cooldown.add(id);
-  let data = await qdb.get('waitlist');
   let userData = await getAsync(id);
-  if (!userData) userData = { status: 'standby', target: null };
-  if (!data) {
-    await standby(id);
-    // await setAsync('waitlist', id);
-    await qdb.set('waitlist', id);
+  if (!userData) userData = await standby(id);
+  if (!waitList) {
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
     );
+    await sleep(2000);
+    waitList = id;
     await setAsync(id, { status: 'matching', target: null });
-  } else if (data == id)
+  } else if (userData && userData.status == 'matching')
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
     );
-  else if (userData.status !== 'standby') {
-    return ctx.sendText('Bạn đang ghép với ai đó.');
-  } else {
-    await setAsync(data, { status: 'matched', target: id });
-    await setAsync(id, { status: 'matched', target: data });
-    await db.delete('waitlist');
+  else {
+    const matched = waitList;
+    waitList = null;
+    await sleep(500);
+    await setAsync(matched, { status: 'matched', target: id });
+    await setAsync(id, { status: 'matched', target: matched });
     let string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
-    const logString = `${id} đã ghép đôi với ${data}`;
+    const logString = `${id} đã ghép đôi với ${matched}`;
     await logging(logString);
     await ctx.sendText(string);
-    await ctx.sendMessage({ text: string }, { recipient: { id: data } });
+    await ctx.sendMessage({ text: string }, { recipient: { id: matched } });
   }
-  setTimeout(() => {
-    cooldown.delete(id);
-  }, ms('10s'));
 }
 
 async function unmatch(ctx) {
@@ -179,7 +184,6 @@ async function stop(ctx) {
     return ctx.sendText('Bạn hiện tại không nằm trong hàng chờ');
   else {
     await qdb.delete('waitlist');
-    // await delAsync('waitlist');
     await standby(id);
     return ctx.sendText('Bạn đã ngừng tìm kiếm!');
   }
@@ -214,16 +218,12 @@ async function handleAttachment(ctx, type, url) {
   if (!isURL(url)) return;
   const id = ctx.event.rawEvent.sender.id;
   let data = await getAsync(id);
-  if (!data) {
-    await standby(id);
-    menu(ctx);
-  } else if (data.target) {
-    // chờ fix
+  if (!data) menu(ctx);
+  else if (data.target) {
     switch (type.toLowerCase()) {
       case 'image':
         await ctx.sendImage(url, { recipient: { id: data.target } });
         break;
-
       case 'video':
         await ctx.sendVideo(url, { recipient: { id: data.target } });
         break;
@@ -238,7 +238,7 @@ async function handleAttachment(ctx, type, url) {
 }
 
 async function exportLog() {
-  let data = await db.get('log');
+  let data = await qdb.get('log');
   data = data.join('\n');
   const { create } = require('sourcebin');
   const bin = await create(
@@ -264,7 +264,7 @@ async function logging(text) {
     .format('lll');
   const string = `${timenow} || ${text}`;
   console.log(string);
-  await db.push('log', string);
+  await qdb.push('log', string);
 }
 
 if (TYPE_RUN == 'ci') process.exit();
