@@ -310,15 +310,15 @@ setInterval(async () => {
     for (const key in stats) {
       await db.add(`stats.${key}`, stats[key]);
       await sleep(500);
-      stats = {
-        messages: 0,
-        matching: 0,
-        images: 0,
-        videos: 0,
-        audio: 0,
-        file: 0,
-      };
     }
+    stats = {
+      messages: 0,
+      matching: 0,
+      images: 0,
+      videos: 0,
+      audio: 0,
+      file: 0,
+    };
   }
 }, ms('10m'));
 
