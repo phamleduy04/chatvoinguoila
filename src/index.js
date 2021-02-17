@@ -18,6 +18,7 @@ let stats = {
 
 // cooldown system for matching system
 const cooldown = new Set();
+const firstTimeWarn = new Set();
 const ms = require('ms');
 
 module.exports = async function App(ctx) {
@@ -76,8 +77,14 @@ async function HandleMessage(ctx) {
   let userid = ctx.event.rawEvent.sender.id;
   stats.messages++;
   let data = await getAsync(userid);
-  if (cooldown.has(userid) && !data)
-    ctx.sendText('Bạn đang bị cooldown, vui lòng chờ trong giây lát!');
+  if (cooldown.has(userid) && !data) {
+    if (firstTimeWarn.has(userid)) return;
+    firstTimeWarn.add(userid);
+    setTimeout(() => {
+      firstTimeWarn.delete(userid);
+    }, ms('10s'));
+    return ctx.sendText('Bạn đang bị cooldown, vui lòng chờ trong giây lát!');
+  }
   cooldown.add(userid);
   setTimeout(() => {
     cooldown.delete(userid);
