@@ -266,8 +266,10 @@ async function handleAttachment(ctx, type, url) {
 
 async function pushUser(id) {
   const arr = await db.get('allUser');
+  if (!arr) await db.set('allUser', []);
   if (!id && arr.includes(id)) return;
   await db.push('allUser', id);
+  await sleep(500);
 }
 async function exportLog() {
   let data = await qdb.get('log');
@@ -300,17 +302,21 @@ async function logging(text) {
 }
 
 setInterval(async () => {
-  for (key in stats) {
-    await db.add(`stats.${key}`, stats[key]);
-    await sleep(500);
-    stats = {
-      messages: 0,
-      matching: 0,
-      images: 0,
-      videos: 0,
-      audio: 0,
-      file: 0,
-    };
+  const stat = await db.get('stats');
+  if (!stat) await db.set('stats', stats);
+  else {
+    for (key in stats) {
+      await db.add(`stats.${key}`, stats[key]);
+      await sleep(500);
+      stats = {
+        messages: 0,
+        matching: 0,
+        images: 0,
+        videos: 0,
+        audio: 0,
+        file: 0,
+      };
+    }
   }
 }, ms('10m'));
 
