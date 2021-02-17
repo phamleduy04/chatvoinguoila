@@ -74,7 +74,6 @@ async function HandleFile(ctx) {
 async function HandleMessage(ctx) {
   let userid = ctx.event.rawEvent.sender.id;
   stats.messages++;
-  await pushUser(userid);
   let data = await getAsync(userid);
   if (cooldown.has(userid) && !data)
     ctx.sendText('Bạn đang bị cooldown, vui lòng chờ trong giây lát!');
@@ -84,8 +83,26 @@ async function HandleMessage(ctx) {
   }, ms('10s'));
   if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
-  console.log(userid == OWNERID);
   if (userid == OWNERID) {
+    if (msgText.startsWith('sendall')) {
+      if (!msgText.includes(' '))
+        return ctx.sendText('Nhập nội dung cần thông báo');
+      const content = msgText.split(' ').slice(1).join(' ');
+      console.log(content);
+      const allDatabase = await db.all();
+      const allUser = allDatabase
+        .filter((el) => !isNaN(el.ID))
+        .map((el) => el.ID);
+      allUser.forEach(async (user) => {
+        await ctx.sendMessage(
+          { text: `Thông báo từ admin: ${content}` },
+          { recipient: { id: user } }
+        );
+        console.log(`Đã thông báo cho ${user}`);
+        await sleep(500);
+      });
+      return;
+    }
     switch (msgText) {
       case 'exportlog':
         return ctx.sendText(await exportLog());
@@ -94,24 +111,16 @@ async function HandleMessage(ctx) {
         const id = msgText.split(' ')[1];
         return await getUserProfile(ctx, id);
       }
-      case 'sendall': {
-        if (!msgText.includes(' '))
-          return ctx.sendText('Nhập nội dung cần thông báo');
-        const content = msgText.split(' ').slice(1).join(' ');
-        const allUser = await db.get('allUser');
-        allUser.forEach((user) => {
-          ctx.sendMessage({ text: content }, { recipient: { id: user } });
-        });
-        console.log(`Đã send tin nhắn cho ${user}`);
-        await sleep(500);
-        return;
-      }
       case 'getstat': {
         const stat = await db.get('stats');
         if (!stat) return ctx.sendText('Chờ bot update database!');
         const { messages, matching, images, videos, audio, file } = stat;
+        const allDatabase = await db.all();
+        const allUser = allDatabase
+          .filter((el) => !isNaN(el.ID))
+          .map((el) => el.ID);
         return ctx.sendText(
-          `Bot hiện tại có ${messages} tin nhắn đã được gởi, ${matching} lần match, ${images} số lần gởi ảnh, ${videos} lần gởi video, ${audio} lần gởi voice message và ${file} lần gởi file!`
+          `Bot hiện tại có ${allUser.length} người dùng, ${messages} tin nhắn đã được gởi, ${matching} lần match, ${images} số lần gởi ảnh, ${videos} lần gởi video, ${audio} lần gởi voice message và ${file} lần gởi file!`
         );
       }
     }
@@ -264,13 +273,6 @@ async function handleAttachment(ctx, type, url) {
   }
 }
 
-async function pushUser(id) {
-  const arr = await db.get('allUser');
-  if (!arr) await db.set('allUser', []);
-  if (!id && arr.includes(id)) return;
-  await db.push('allUser', id);
-  await sleep(500);
-}
 async function exportLog() {
   let data = await qdb.get('log');
   data = data.join('\n');
