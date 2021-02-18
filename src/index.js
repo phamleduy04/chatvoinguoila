@@ -151,6 +151,9 @@ async function HandleMessage(ctx) {
           `Bot hiện tại có ${allUser.length} người dùng, ${messages} tin nhắn đã được gởi, ${matching} lần match, ${images} số lần gởi ảnh, ${videos} lần gởi video, ${audio} lần gởi voice message và ${file} lần gởi file!`
         );
       }
+      case 'locallog':
+        console.log(logArr);
+        return await ctx.sendText('check console');
     }
   }
   // lệnh mà user sử dụng được
