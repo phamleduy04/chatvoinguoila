@@ -202,6 +202,8 @@ async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let userData = await getAsync(id);
   if (!userData) userData = await standby(id);
+  if (userData.status !== 'standby')
+    return ctx.sendText('Bạn không thể search lúc này!');
   if (!waitList) {
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
@@ -281,7 +283,7 @@ async function menu(ctx) {
 }
 
 async function standby(id) {
-  await setAsync(id, { status: 'standby', target: null });
+  return await setAsync(id, { status: 'standby', target: null });
 }
 
 // xử lý ảnh, video, audio, file
@@ -362,8 +364,7 @@ setInterval(async () => {
     log = [];
     await db.set('log', []);
   }
-  log.concat(logArr);
-  await db.set('log', log);
+  await db.set('log', [...log, ...logArr]);
   logArr = [];
 }, ms('10m'));
 
