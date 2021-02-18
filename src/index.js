@@ -4,8 +4,9 @@ const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const { getUserProfile, sleep } = require('../utils');
 const isURL = require('is-url');
-const qdb = require('quick.db');
+// waitlist và logarr set global
 global.waitList = null;
+global.logArr = [];
 
 let stats = {
   messages: 0,
@@ -22,6 +23,7 @@ const firstTimeWarn = new Set();
 const ms = require('ms');
 
 module.exports = async function App(ctx) {
+  console.log('someone send message');
   /*
   Postback: GET_STARTED (lúc vừa sử dụng bot)
             START_MATCHING (lúc bấm nút "tìm kiếm")
@@ -42,33 +44,44 @@ module.exports = async function App(ctx) {
 };
 
 async function getAsync(key) {
+  // sleep để làm chậm quá trình, giúp giảm tải database
   await sleep(500);
+  // get key từ databsae
   return await db.get(key);
 }
 
 async function setAsync(key, value) {
+  // sleep để làm chậm quá trình, giúp giảm tải database
   await sleep(500);
+  // set giá trị vào database
   return await db.set(key, value);
-  // return await db.update(key, value);
 }
 
 async function HandleImage(ctx) {
+  // tính số lần gởi ảnh
   stats.images++;
+  // gởi file xuống function handleAttachment
   await handleAttachment(ctx, 'image', ctx.event.image.url);
 }
 
 async function HandleAudio(ctx) {
+  // tính số lần gởi voice
   stats.audio++;
+  // gởi file xuống function handleAttachment
   await handleAttachment(ctx, 'audio', ctx.event.audio.url);
 }
 
 async function HandleVideo(ctx) {
+  // tính số lần gởi video
   stats.videos++;
+  // gởi file xuống function handleAttachment
   await handleAttachment(ctx, 'video', ctx.event.video.url);
 }
 
 async function HandleFile(ctx) {
+  // tính số lần gởi file
   stats.file++;
+  // gởi file xuống function handleAttachment
   await handleAttachment(ctx, 'file', ctx.event.file.url);
 }
 
@@ -76,6 +89,7 @@ async function HandleMessage(ctx) {
   let userid = ctx.event.rawEvent.sender.id;
   stats.messages++;
   let data = await getAsync(userid);
+  // cooldown systems
   if (cooldown.has(userid) && !data) {
     if (firstTimeWarn.has(userid)) return;
     firstTimeWarn.add(userid);
@@ -88,9 +102,11 @@ async function HandleMessage(ctx) {
   setTimeout(() => {
     cooldown.delete(userid);
   }, ms('10s'));
-  await sleep(5000);
+  // sleep để giảm tải cho bot
+  await sleep(3000);
   if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
+  // những lệnh chỉ có owner xài được
   if (userid == OWNERID) {
     if (msgText.startsWith('sendall')) {
       if (!msgText.includes(' '))
@@ -137,6 +153,7 @@ async function HandleMessage(ctx) {
       }
     }
   }
+  // lệnh mà user sử dụng được
   switch (msgText) {
     case 'exit':
       return unmatch(ctx);
@@ -162,6 +179,7 @@ async function HandleMessage(ctx) {
   }
 }
 
+// postback = các button
 async function HandlePostBack(ctx) {
   switch (ctx.event.postback.payload) {
     case 'START_MATCHING':
@@ -177,6 +195,7 @@ async function HandlePostBack(ctx) {
   }
 }
 
+// wait = click nút Tìm kiếm, nhập search
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let userData = await getAsync(id);
@@ -208,6 +227,7 @@ async function wait(ctx) {
   }
 }
 
+// ngắt kết nối
 async function unmatch(ctx) {
   const id = ctx.event.rawEvent.sender.id;
   const data = await getAsync(id);
@@ -225,18 +245,19 @@ async function unmatch(ctx) {
   }
 }
 
+// ngưng tìm kiếm
 async function stop(ctx) {
   const id = ctx.event.rawEvent.sender.id;
-  const data = await getAsync(id);
-  if (data.status !== 'matching')
+  if (waitList != id)
     return ctx.sendText('Bạn hiện tại không nằm trong hàng chờ');
   else {
-    await qdb.delete('waitlist');
+    waitList = null;
     await standby(id);
     return ctx.sendText('Bạn đã ngừng tìm kiếm!');
   }
 }
 
+// menu = template cùng nhiều nút để click
 async function menu(ctx) {
   await ctx.sendButtonTemplate('Chọn các nút ở dưới để sử dụng bot!', [
     {
@@ -261,6 +282,7 @@ async function standby(id) {
   await setAsync(id, { status: 'standby', target: null });
 }
 
+// xử lý ảnh, video, audio, file
 async function handleAttachment(ctx, type, url) {
   if (!type) return;
   if (!isURL(url)) return;
@@ -285,8 +307,9 @@ async function handleAttachment(ctx, type, url) {
   }
 }
 
+// export log ra cho user
 async function exportLog() {
-  let data = await qdb.get('log');
+  let data = await db.get('log');
   data = data.join('\n');
   const { create } = require('sourcebin');
   const bin = await create(
@@ -311,10 +334,10 @@ async function logging(text) {
     .tz(TIMEZONE || 'America/Chicago')
     .format('lll');
   const string = `${timenow} || ${text}`;
+  logArr.push(string);
   console.log(string);
-  await qdb.push('log', string);
 }
-
+// 10p cập nhật database tránh quá tải
 setInterval(async () => {
   const stat = await db.get('stats');
   if (!stat) await db.set('stats', stats);
@@ -332,6 +355,10 @@ setInterval(async () => {
       file: 0,
     };
   }
+  let log = await db.get('log');
+  if (!log) log = await db.set('log', []);
+  log.concat(logArr);
+  await db.set('log', log);
 }, ms('10m'));
 
 if (TYPE_RUN == 'ci') process.exit();
