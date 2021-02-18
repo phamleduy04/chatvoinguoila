@@ -127,14 +127,14 @@ async function HandleMessage(ctx) {
       }
       return;
     }
+    if (msgText.startsWith('getuser')) {
+      if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
+      const id = msgText.split(' ')[1];
+      return await getUserProfile(ctx, id);
+    }
     switch (msgText) {
       case 'exportlog':
         return ctx.sendText(await exportLog());
-      case 'getuser': {
-        if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
-        const id = msgText.split(' ')[1];
-        return await getUserProfile(ctx, id);
-      }
       case 'getstat': {
         const stat = await db.get('stats');
         if (!stat) return ctx.sendText('Chờ bot update database!');
