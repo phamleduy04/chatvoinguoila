@@ -109,7 +109,6 @@ async function HandleMessage(ctx) {
       if (!msgText.includes(' '))
         return ctx.sendText('Nhập nội dung cần thông báo');
       const content = msgText.split(' ').slice(1).join(' ');
-      console.log(content);
       const allDatabase = await db.all();
       const allUser = allDatabase
         .filter((el) => !isNaN(el.ID))
