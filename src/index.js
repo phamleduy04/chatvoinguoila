@@ -203,7 +203,7 @@ async function wait(ctx) {
   let userData = await getAsync(id);
   if (!userData) userData = await standby(id);
   if (userData.status !== 'standby')
-    return ctx.sendText('Bạn không thể search lúc này!');
+    return ctx.sendText('Bạn không thể tìm kiếm lúc này!');
   if (!waitList) {
     await ctx.sendText(
       'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
@@ -211,7 +211,7 @@ async function wait(ctx) {
     await sleep(1000);
     waitList = id;
     await setAsync(id, { status: 'matching', target: null });
-  } else if (userData && userData.status == 'matching')
+  } else if (userData.status == 'matching')
     return ctx.sendText(
       'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
     );
