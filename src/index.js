@@ -101,8 +101,6 @@ async function HandleMessage(ctx) {
   setTimeout(() => {
     cooldown.delete(userid);
   }, ms('10s'));
-  // sleep để giảm tải cho bot
-  await sleep(10000);
   if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
   // những lệnh chỉ có owner xài được
@@ -170,12 +168,14 @@ async function HandleMessage(ctx) {
       return await wait(ctx);
     default:
       {
-        if (data && data.target)
+        if (data && data.target) {
+          // sleep dề phòng bị spam
+          await sleep(8000);
           await ctx.sendMessage(
             { text: ctx.event.message.text },
             { recipient: { id: data.target } }
           );
-        else menu(ctx);
+        } else menu(ctx);
       }
       break;
   }
