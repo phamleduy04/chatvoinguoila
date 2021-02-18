@@ -23,7 +23,6 @@ const firstTimeWarn = new Set();
 const ms = require('ms');
 
 module.exports = async function App(ctx) {
-  console.log('someone send message');
   /*
   Postback: GET_STARTED (lúc vừa sử dụng bot)
             START_MATCHING (lúc bấm nút "tìm kiếm")
