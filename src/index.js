@@ -130,7 +130,8 @@ async function HandleMessage(ctx) {
     if (msgText.startsWith('getuser')) {
       if (!msgText.includes(' ')) return ctx.sendText('Nhập ID');
       const id = msgText.split(' ')[1];
-      return await getUserProfile(ctx, id);
+      await getUserProfile(ctx, id);
+      return;
     }
     switch (msgText) {
       case 'exportlog':
@@ -169,7 +170,7 @@ async function HandleMessage(ctx) {
       {
         if (data && data.target) {
           // sleep dề phòng bị spam
-          await sleep(8000);
+          await sleep(9000);
           await ctx.sendMessage(
             { text: ctx.event.message.text },
             { recipient: { id: data.target } }
@@ -357,9 +358,13 @@ setInterval(async () => {
     };
   }
   let log = await db.get('log');
-  if (!log) log = await db.set('log', []);
+  if (!log) {
+    log = [];
+    await db.set('log', []);
+  }
   log.concat(logArr);
   await db.set('log', log);
+  logArr = [];
 }, ms('10m'));
 
 if (TYPE_RUN == 'ci') process.exit();
