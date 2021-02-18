@@ -103,7 +103,7 @@ async function HandleMessage(ctx) {
     cooldown.delete(userid);
   }, ms('10s'));
   // sleep để giảm tải cho bot
-  await sleep(3000);
+  await sleep(8000);
   if (!data) await standby(userid);
   let msgText = ctx.event.message.text.toLowerCase();
   // những lệnh chỉ có owner xài được
