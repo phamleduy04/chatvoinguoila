@@ -122,8 +122,9 @@ async function HandleMessage(ctx) {
           );
           console.log(`Đã thông báo cho ${user}`);
           await sleep(2000);
-          // eslint-disable-next-line no-empty
-        } catch (e) {}
+        } catch (e) {
+          console.log(`Không gởi được cho ${user}`);
+        }
       }
       return;
     }
@@ -201,7 +202,8 @@ async function HandlePostBack(ctx) {
 async function wait(ctx) {
   let id = ctx.event.rawEvent.sender.id;
   let userData = await getAsync(id);
-  if (!userData) userData = await standby(id);
+  if (!userData || (userData.status == 'matching' && id != waitList))
+    userData = await standby(id);
   if (userData.status !== 'standby')
     return ctx.sendText('Bạn không thể tìm kiếm lúc này!');
   if (!waitList) {
