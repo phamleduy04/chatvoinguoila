@@ -1,9 +1,9 @@
 const { getClient } = require('bottender');
-if (process.env.TYPE_RUN == 'ci') return;
+if (process.env.TYPE_RUN == 'ci') process.exit(0);
 const client = getClient('messenger');
 
 module.exports = {
-  getUserProfile: async function (ctx, userID) {
+  getUserProfile: async function(ctx, userID) {
     if (!userID) return ctx.sendText('userID undefined');
     try {
       const user = await client.getUserProfile(userID);
@@ -13,7 +13,10 @@ module.exports = {
       return ctx.sendText('error, check console!');
     }
   },
-  sleep: async function (ms) {
+  markSeen: async function(userID) {
+    return await client.markSeen(userID);
+  },
+  sleep: async function(ms) {
     // eslint-disable-next-line no-undef
     return new Promise((res) => setTimeout(res, ms));
   },
