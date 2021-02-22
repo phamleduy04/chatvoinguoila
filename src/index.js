@@ -2,7 +2,9 @@ const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
 const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 const { getUserProfile, sleep, markSeen, sendAgain } = require('../utils');
+const { detectNSFW } = require('../nsfwDetect');
 const isURL = require('is-url');
+const nsfwDb = db.createModel('nsfw');
 // waitlist và logarr set global
 global.waitList = null;
 global.logArr = [];
@@ -29,6 +31,7 @@ module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
   // isText: nội dung tin nhắn là string
   else if (ctx.event.isText) return HandleMessage;
+  // else if (ctx.event.isEcho) return console.log('echo');
   // isImage: nội dung tin nhắn là hình ảnh (sticker cũng tính)
   else if (ctx.event.isImage) return HandleImage;
   // isAudio: nội dung tin nhắn là voice message
@@ -57,10 +60,36 @@ async function setAsync(key, value) {
 }
 
 async function HandleImage(ctx) {
+  const imageUrl = ctx.event.image.url;
   // tính số lần gởi ảnh
   stats.images++;
+  try {
+    const kq = await detectNSFW(imageUrl);
+    console.log(kq);
+    const { Hentai, Porn, Sexy } = kq;
+    if (Hentai > 0.8 || Porn > 0.8 || Sexy > 0.8) return HandleNSFWImage(ctx, imageUrl);
+  }
+  catch(e) {
+    console.error(e);
+    await handleAttachment(ctx, 'image', imageUrl);
+  }
   // gởi file xuống function handleAttachment
-  await handleAttachment(ctx, 'image', ctx.event.image.url);
+  await handleAttachment(ctx, 'image', imageUrl);
+}
+
+async function HandleNSFWImage(ctx, imageURL) {
+  const sender = ctx.event.rawEvent.sender.id;
+  const data = await getAsync(sender);
+  if (!data || !data.target) return;
+  await nsfwDb.set(data.target, imageURL);
+  await ctx.sendMessage(
+    { text: `Cảnh báo! Hệ thống AI của bot đã phát hiện hình ảnh của người kia gởi bạn có thể chứa nội dung NSFW.\n\nNhập nsfwyes để xem hình ảnh hoặc nếu bạn không muốn xem hãy bỏ qua tin nhắn này!\n\nLệnh chỉ có tác dụng trong 30s!\n` },
+    { recipient: { id: data.target } },
+  );
+
+  setTimeout(async () => {
+    await nsfwDb.delete(data.target);
+  }, ms('35s'));
 }
 
 async function HandleAudio(ctx) {
@@ -162,6 +191,11 @@ async function HandleMessage(ctx) {
       return stop(ctx);
     case 'id':
       return ctx.sendText(`ID của bạn là: ${userid}`);
+    case 'nsfwyes': {
+      const imageURL = await nsfwDb.get(userid);
+      if (!imageURL) return ctx.sendText('Không tìm thấy dữ liệu bạn yêu cầu! Vui lòng thử lại sau!');
+      return await ctx.sendImage(imageURL);
+    }
     case 'menu':
       return await menu(ctx);
     case 'search':
@@ -191,12 +225,12 @@ async function HandleMessage(ctx) {
 async function HandleRead(ctx) {
   const id = ctx.event.rawEvent.sender.id;
   const data = await getAsync(id);
-  if (!data.target) return;
+  if (!data || !data.target) return;
   try {
     await markSeen(data.target);
   }
   catch(e) {
-    console.log(e);
+    console.log(`Can't mark seen for user ${data.target}`);
   }
 }
 
