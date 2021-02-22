@@ -65,7 +65,6 @@ async function HandleImage(ctx) {
   stats.images++;
   try {
     const kq = await detectNSFW(imageUrl);
-    console.log(kq);
     const { Hentai, Porn, Sexy } = kq;
     if (Hentai > 0.8 || Porn > 0.8 || Sexy > 0.8) return HandleNSFWImage(ctx, imageUrl);
   }
