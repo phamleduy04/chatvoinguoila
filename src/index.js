@@ -194,7 +194,7 @@ async function HandleMessage(ctx) {
     case 'nsfwyes': {
       const imageURL = await nsfwDb.get(userid);
       if (!imageURL) return ctx.sendText('Không tìm thấy dữ liệu bạn yêu cầu! Vui lòng thử lại sau!');
-      return await handleAttachment(ctx, 'image', imageURL);
+      return await ctx.sendImage(imageURL);
     }
     case 'menu':
       return await menu(ctx);
