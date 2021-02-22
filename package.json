@@ -1,11 +1,11 @@
 {
   "name": "chatbattu",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "scripts": {
-    "dev": "bottender dev",
+    "dev": "cross-env TYPE_RUN=dev bottender dev",
     "lint": "eslint . ",
-    "start": "bottender start",
+    "start": "cross-env TYPE_RUN=production bottender start",
     "start-bot": "npm-run-all setprofile start",
     "test": "cross-env TYPE_RUN=ci node index.js",
     "setprofile": "npx bottender messenger profile set",

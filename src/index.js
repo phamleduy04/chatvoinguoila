@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
 const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
 const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
-const { getUserProfile, sleep } = require('../utils');
+const { getUserProfile, sleep, markSeen } = require('../utils');
 const isURL = require('is-url');
 // waitlist và logarr set global
 global.waitList = null;
@@ -38,7 +37,8 @@ module.exports = async function App(ctx) {
   else if (ctx.event.isVideo) return HandleVideo;
   // isFile: nội dung tin nhắn là file
   else if (ctx.event.isFile) return HandleFile;
-
+  // isRead: nếu nội dung tin nhắn đã được đọc
+  else if (ctx.event.isRead) return HandleRead;
   // tất cả các event đều được chuyển tới function ở dưới kèm theo param (ctx)
 };
 
@@ -85,9 +85,9 @@ async function HandleFile(ctx) {
 }
 
 async function HandleMessage(ctx) {
-  let userid = ctx.event.rawEvent.sender.id;
+  const userid = ctx.event.rawEvent.sender.id;
   stats.messages++;
-  let data = await getAsync(userid);
+  const data = await getAsync(userid);
   // cooldown systems
   if (cooldown.has(userid) && !data) {
     if (firstTimeWarn.has(userid)) return;
@@ -102,7 +102,7 @@ async function HandleMessage(ctx) {
     cooldown.delete(userid);
   }, ms('10s'));
   if (!data) await standby(userid);
-  let msgText = ctx.event.message.text.toLowerCase();
+  const msgText = ctx.event.message.text.toLowerCase();
   // những lệnh chỉ có owner xài được
   if (userid == OWNERID) {
     if (msgText.startsWith('sendall')) {
@@ -118,7 +118,7 @@ async function HandleMessage(ctx) {
         try {
           await ctx.sendMessage(
             { text: `Thông báo từ admin: ${content}` },
-            { recipient: { id: user } }
+            { recipient: { id: user } },
           );
           console.log(`Đã thông báo cho ${user}`);
           await sleep(2000);
@@ -146,7 +146,7 @@ async function HandleMessage(ctx) {
           .filter((el) => !isNaN(el.ID))
           .map((el) => el.ID);
         return ctx.sendText(
-          `Bot hiện tại có ${allUser.length} người dùng, ${messages} tin nhắn đã được gởi, ${matching} lần match, ${images} số lần gởi ảnh, ${videos} lần gởi video, ${audio} lần gởi voice message và ${file} lần gởi file!`
+          `Bot hiện tại có ${allUser.length} người dùng, ${messages} tin nhắn đã được gởi, ${matching} lần match, ${images} số lần gởi ảnh, ${videos} lần gởi video, ${audio} lần gởi voice message và ${file} lần gởi file!`,
         );
       }
       case 'locallog':
@@ -158,9 +158,8 @@ async function HandleMessage(ctx) {
   switch (msgText) {
     case 'exit':
       return unmatch(ctx);
-    case 'stop': {
+    case 'stop':
       return stop(ctx);
-    }
     case 'id':
       return ctx.sendText(`ID của bạn là: ${userid}`);
     case 'menu':
@@ -171,14 +170,27 @@ async function HandleMessage(ctx) {
       {
         if (data && data.target) {
           // sleep dề phòng bị spam
-          await sleep(9000);
+          if (TYPE_RUN == 'production') await sleep(9000);
           await ctx.sendMessage(
             { text: ctx.event.message.text },
-            { recipient: { id: data.target } }
+            { recipient: { id: data.target } },
           );
         } else menu(ctx);
       }
       break;
+  }
+}
+
+// Read = When user seen
+async function HandleRead(ctx) {
+  const id = ctx.event.rawEvent.sender.id;
+  const data = await getAsync(id);
+  if (!data.target) return;
+  try {
+    await markSeen(data.target);
+  }
+  catch(e) {
+    console.log(e);
   }
 }
 
@@ -189,9 +201,9 @@ async function HandlePostBack(ctx) {
       wait(ctx);
       break;
     case 'GET_STARTED': {
-      let userprofile = await ctx.getUserProfile();
+      const userprofile = await ctx.getUserProfile();
       await ctx.sendText(
-        `Chào mừng bạn ${userprofile.name} đã đến với Bất Tử bot!\nKhi bạn bấm nút "Tìm kiếm" có nghĩa là bạn đã đồng ý các điều khoản được ghi ở https://bit.ly/3iV6w81\n\nLưu ý:Nếu bạn ở EU sẽ không sử dụng các nút được, bạn vui lòng nhắn "search" nhé!`
+        `Chào mừng bạn ${userprofile.name} đã đến với Bất Tử bot!\nKhi bạn bấm nút "Tìm kiếm" có nghĩa là bạn đã đồng ý các điều khoản được ghi ở https://bit.ly/3iV6w81\n\nLưu ý:Nếu bạn ở EU sẽ không sử dụng các nút được, bạn vui lòng nhắn "search" nhé!`,
       );
       menu(ctx);
     }
@@ -200,7 +212,7 @@ async function HandlePostBack(ctx) {
 
 // wait = click nút Tìm kiếm, nhập search
 async function wait(ctx) {
-  let id = ctx.event.rawEvent.sender.id;
+  const id = ctx.event.rawEvent.sender.id;
   let userData = await getAsync(id);
   if (!userData || (userData.status == 'matching' && id != waitList))
     userData = await standby(id);
@@ -208,14 +220,14 @@ async function wait(ctx) {
     return ctx.sendText('Bạn không thể tìm kiếm lúc này!');
   if (!waitList) {
     await ctx.sendText(
-      'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.'
+      'Đang tìm kiếm mục tiêu cho bạn, hãy chờ trong giây lát.\nGởi cú pháp "stop" để dừng tìm kiếm.',
     );
     await sleep(1000);
     waitList = id;
     await setAsync(id, { status: 'matching', target: null });
   } else if (userData.status == 'matching')
     return ctx.sendText(
-      'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!'
+      'Bạn đang ở trong hàng chờ, vui lòng kiên nhẫn chờ đợi!',
     );
   else {
     const matched = waitList;
@@ -223,7 +235,7 @@ async function wait(ctx) {
     await sleep(500);
     await setAsync(matched, { status: 'matched', target: id });
     await setAsync(id, { status: 'matched', target: matched });
-    let string =
+    const string =
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
     const logString = `${id} đã ghép đôi với ${matched}`;
     stats.matching++;
@@ -246,7 +258,7 @@ async function unmatch(ctx) {
     await ctx.sendText('Đã ngắt kết nối với đối phương!');
     await ctx.sendMessage(
       { text: 'Người bên kia đã ngắt kết nối với bạn 😢.' },
-      { recipient: { id: data.target } }
+      { recipient: { id: data.target } },
     );
   }
 }
@@ -293,7 +305,7 @@ async function handleAttachment(ctx, type, url) {
   if (!type) return;
   if (!isURL(url)) return;
   const id = ctx.event.rawEvent.sender.id;
-  let data = await getAsync(id);
+  const data = await getAsync(id);
   if (!data) menu(ctx);
   else if (data.target) {
     switch (type.toLowerCase()) {
@@ -328,7 +340,7 @@ async function exportLog() {
     {
       title: 'User log',
       description: 'User log',
-    }
+    },
   );
   return bin.url;
 }
