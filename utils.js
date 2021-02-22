@@ -20,4 +20,8 @@ module.exports = {
     // eslint-disable-next-line no-undef
     return new Promise((res) => setTimeout(res, ms));
   },
+  sendAgain: async function(userid, content) {
+    await module.exports.sleep(5000);
+    return await client.sendMessage(userid, { text: content });
+  },
 };
