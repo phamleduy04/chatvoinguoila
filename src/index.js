@@ -31,7 +31,7 @@ module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
   // isText: nội dung tin nhắn là string
   else if (ctx.event.isText) return HandleMessage;
-  else if (ctx.event.isEcho) return console.log('echo');
+  // else if (ctx.event.isEcho) return console.log('echo');
   // isImage: nội dung tin nhắn là hình ảnh (sticker cũng tính)
   else if (ctx.event.isImage) return HandleImage;
   // isAudio: nội dung tin nhắn là voice message
@@ -230,7 +230,7 @@ async function HandleRead(ctx) {
     await markSeen(data.target);
   }
   catch(e) {
-    console.log(e);
+    console.log(`Can't mark seen for user ${data.target}`);
   }
 }
 
