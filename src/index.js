@@ -1,7 +1,7 @@
 const { MONGODB, OWNERID, TIMEZONE, TYPE_RUN } = process.env;
 const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
-const { getUserProfile, sleep, markSeen } = require('../utils');
+const { getUserProfile, sleep, markSeen, sendAgain } = require('../utils');
 const isURL = require('is-url');
 // waitlist và logarr set global
 global.waitList = null;
@@ -171,10 +171,16 @@ async function HandleMessage(ctx) {
         if (data && data.target) {
           // sleep dề phòng bị spam
           if (TYPE_RUN == 'production') await sleep(9000);
-          await ctx.sendMessage(
-            { text: ctx.event.message.text },
-            { recipient: { id: data.target } },
-          );
+          try {
+            await ctx.sendMessage(
+              { text: ctx.event.message.text },
+              { recipient: { id: data.target } },
+            );
+          }
+          catch(e) {
+            await sendAgain(data.target, ctx.event.message.text);
+            console.error(e);
+          }
         } else menu(ctx);
       }
       break;
