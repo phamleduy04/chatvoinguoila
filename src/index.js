@@ -6,7 +6,8 @@ const { detectNSFW } = require('../nsfwDetect');
 const isURL = require('is-url');
 const nsfwDb = db.createModel('nsfw');
 const { parse } = require('url');
-const pQueue = require('p-queue');
+const { default: PQueue } = require('p-queue');
+const nsfwQueue = new PQueue({ concurrency: 2 });
 // waitlist và logarr set global
 global.waitList = null;
 global.logArr = [];
@@ -70,7 +71,8 @@ async function HandleImage(ctx) {
     const pathname = parse(imageUrl).pathname;
     // update sau!
     if (pathname.endsWith('.gif')) throw new Error('Error này dùng để gởi ảnh mà không qua bước kiểm tra NSFW');
-    const kq = await detectNSFW(imageUrl);
+    // const kq = await detectNSFW(imageUrl);
+    const kq = await nsfwQueue.add(async () => await detectNSFW(imageUrl));
     const { Hentai, Porn, Sexy } = kq;
     if (Hentai > 0.8 || Porn > 0.8 || Sexy > 0.8) return HandleNSFWImage(ctx, imageUrl, kq);
   }
