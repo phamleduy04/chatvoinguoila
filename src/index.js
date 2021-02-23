@@ -64,12 +64,14 @@ async function HandleImage(ctx) {
   // tính số lần gởi ảnh
   stats.images++;
   try {
+    // update sau!
+    if (imageUrl.includes('.gif')) throw new Error('Error này dùng để gởi ảnh mà không qua bước kiểm tra NSFW');
     const kq = await detectNSFW(imageUrl);
     const { Hentai, Porn, Sexy } = kq;
     if (Hentai > 0.8 || Porn > 0.8 || Sexy > 0.8) return HandleNSFWImage(ctx, imageUrl, kq);
   }
   catch(e) {
-    console.error(e);
+    console.error(e.message);
     await handleAttachment(ctx, 'image', imageUrl);
   }
   // gởi file xuống function handleAttachment
