@@ -6,6 +6,7 @@ const { detectNSFW } = require('../nsfwDetect');
 const isURL = require('is-url');
 const nsfwDb = db.createModel('nsfw');
 const { parse } = require('url');
+const pQueue = require('p-queue');
 // waitlist và logarr set global
 global.waitList = null;
 global.logArr = [];
