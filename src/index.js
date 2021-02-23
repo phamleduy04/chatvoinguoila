@@ -5,6 +5,7 @@ const { getUserProfile, sleep, markSeen, sendAgain } = require('../utils');
 const { detectNSFW } = require('../nsfwDetect');
 const isURL = require('is-url');
 const nsfwDb = db.createModel('nsfw');
+const { parse } = require('url');
 // waitlist và logarr set global
 global.waitList = null;
 global.logArr = [];
@@ -31,7 +32,8 @@ module.exports = async function App(ctx) {
   if (ctx.event.isPostback) return HandlePostBack;
   // isText: nội dung tin nhắn là string
   else if (ctx.event.isText) return HandleMessage;
-  // else if (ctx.event.isEcho) return console.log('echo');
+  // echo = duplicate request
+  else if (ctx.event.isEcho) return console.log('Echo');
   // isImage: nội dung tin nhắn là hình ảnh (sticker cũng tính)
   else if (ctx.event.isImage) return HandleImage;
   // isAudio: nội dung tin nhắn là voice message
@@ -64,8 +66,9 @@ async function HandleImage(ctx) {
   // tính số lần gởi ảnh
   stats.images++;
   try {
+    const pathname = parse(imageUrl).pathname;
     // update sau!
-    if (imageUrl.includes('.gif')) throw new Error('Error này dùng để gởi ảnh mà không qua bước kiểm tra NSFW');
+    if (pathname.endsWith('.gif')) throw new Error('Error này dùng để gởi ảnh mà không qua bước kiểm tra NSFW');
     const kq = await detectNSFW(imageUrl);
     const { Hentai, Porn, Sexy } = kq;
     if (Hentai > 0.8 || Porn > 0.8 || Sexy > 0.8) return HandleNSFWImage(ctx, imageUrl, kq);
