@@ -14,6 +14,7 @@ module.exports = {
     const image = await tf.node.decodeImage(pic.data, 3);
     const predictions = await model.classify(image);
     // Tensor memory must be managed explicitly (it is not sufficient to let a tf.Tensor go out of scope for its memory to be released).
+    tf.dispose(image);
     image.dispose();
     return module.exports.reduceArr(predictions);
   },
