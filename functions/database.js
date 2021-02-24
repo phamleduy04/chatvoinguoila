@@ -22,4 +22,7 @@ module.exports = {
     getAll: async function() {
         return await db.all();
     },
+    add: async function(key, value) {
+        return await db.add(key, value);
+    },
 };

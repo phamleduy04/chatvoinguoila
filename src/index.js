@@ -6,7 +6,7 @@ const HandleImage = require('../handlers/image');
 const HandleVideo = require('../handlers/video');
 const HandleFile = require('../handlers/file');
 const HandleRead = require('../handlers/read');
-
+const { get, set, add } = require('../functions/database');
 // waitlist và logarr set global
 global.waitList = null;
 global.logArr = [];
@@ -46,11 +46,11 @@ module.exports = async function App(ctx) {
 
 // 10p cập nhật database tránh quá tải
 setInterval(async () => {
-  const stat = await db.get('stats');
-  if (!stat) await db.set('stats', stats);
+  const stat = await get('stats');
+  if (!stat) await set('stats', stats);
   else {
     for (const key in stats) {
-      await db.add(`stats.${key}`, stats[key]);
+      await add(`stats.${key}`, stats[key]);
       await sleep(500);
     }
     stats = {
@@ -62,12 +62,12 @@ setInterval(async () => {
       file: 0,
     };
   }
-  let log = await db.get('log');
+  let log = await get('log');
   if (!log) {
     log = [];
-    await db.set('log', []);
+    await set('log', []);
   }
-  await db.set('log', [...log, ...logArr]);
+  await set('log', [...log, ...logArr]);
   logArr = [];
 }, ms('10m'));
 
