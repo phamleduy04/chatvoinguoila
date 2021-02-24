@@ -78,7 +78,7 @@ async function HandleImage(ctx) {
   }
   catch(e) {
     console.error(e.message);
-    await handleAttachment(ctx, 'image', imageUrl);
+    return await handleAttachment(ctx, 'image', imageUrl);
   }
   // gởi file xuống function handleAttachment
   await handleAttachment(ctx, 'image', imageUrl);
