@@ -1,7 +1,7 @@
 // cooldown system for matching system
 const cooldown = new Set();
 const firstTimeWarn = new Set();
-
+const { OWNERID, TYPE_RUN } = process.env;
 const { sleep, getUserProfile, sendAgain } = require('../functions/utils');
 const { get, getAll, standby } = require('../functions/database');
 const menu = require('../userReq/menu');
