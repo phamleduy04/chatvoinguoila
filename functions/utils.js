@@ -1,5 +1,6 @@
 const { getClient } = require('bottender');
-if (process.env.TYPE_RUN == 'ci') process.exit(0);
+const { TIMEZONE, TYPE_RUN } = process.env;
+if (TYPE_RUN == 'ci') process.exit(0);
 const client = getClient('messenger');
 
 module.exports = {
@@ -23,5 +24,15 @@ module.exports = {
   sendAgain: async function(userid, content) {
     await module.exports.sleep(5000);
     return await client.sendMessage(userid, { text: content });
+  },
+  logging: function(text) {
+    if (!text) return;
+    const moment = require('moment-timezone');
+    const timenow = moment()
+      .tz(TIMEZONE || 'America/Chicago')
+      .format('lll');
+    const string = `${timenow} || ${text}`;
+    logArr.push(string);
+    console.log(string);
   },
 };

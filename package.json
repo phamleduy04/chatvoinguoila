@@ -28,7 +28,7 @@
     "nsfwjs": "^2.3.0",
     "p-queue": "^6.6.2",
     "pm2": "^4.5.4",
-    "prettier": "2.0.5",
+    "prettier": "^2.2.1",
     "quickmongo": "2.0.7",
     "sourcebin": "^4.0.2"
   },
