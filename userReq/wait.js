@@ -28,7 +28,7 @@ module.exports = async (ctx) => {
       'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
     const logString = `${id} đã ghép đôi với ${matched}`;
     stats.matching++;
-    await logging(logString);
+    logging(logString);
     await ctx.sendText(string);
     await ctx.sendMessage({ text: string }, { recipient: { id: matched } });
   }
