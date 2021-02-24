@@ -32,7 +32,7 @@ module.exports = async (ctx) => {
   if (userid == OWNERID) {
     if (msgText.startsWith("sendall")) {
       if (!msgText.includes(" ")) return ctx.sendText("Nhập nội dung cần thông báo");
-      const content = msgText.split(" ").slice(1).join(" ");
+      const content = ctx.event.message.text.split(" ").slice(1).join(" ");
       const allDatabase = await db.all();
       const allUser = allDatabase
         .filter((el) => !isNaN(el.ID))
