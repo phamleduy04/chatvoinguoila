@@ -14,7 +14,7 @@ module.exports = {
         return await db.set(key, value);
     },
     standby: async function(id) {
-        return await set(id, { status: 'standby', target: null });
+        return await module.exports.set(id, { status: 'standby', target: null });
     },
     nsfwDb: async function() {
         return nsfwDb;
