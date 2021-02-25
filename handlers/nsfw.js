@@ -1,4 +1,5 @@
 const { get, nsfwDelete, nsfwPush, nsfwSet } = require('../functions/database');
+const ms = require('ms');
 module.exports = async (ctx, imageURL, predictData) => {
   const sender = ctx.event.rawEvent.sender.id;
   const data = await get(sender);
