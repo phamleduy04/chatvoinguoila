@@ -3,7 +3,7 @@ const cooldown = new Set();
 const firstTimeWarn = new Set();
 const { OWNERID, TYPE_RUN } = process.env;
 const { sleep, getUserProfile, sendAgain } = require('../functions/utils');
-const { get, getAll, standby } = require('../functions/database');
+const { get, getAll, standby, nsfwGet } = require('../functions/database');
 const menu = require('../userReq/menu');
 const unmatch = require('../userReq/unmatch');
 const wait = require('../userReq/wait');
@@ -85,7 +85,7 @@ module.exports = async (ctx) => {
     case "id":
       return ctx.sendText(`ID của bạn là: ${userid}`);
     case "nsfwyes": {
-      const imageURL = await nsfwDb.get(userid);
+      const imageURL = await nsfwGet(userid);
       if (!imageURL)
         return ctx.sendText(
           "Không tìm thấy dữ liệu bạn yêu cầu! Vui lòng thử lại sau!",

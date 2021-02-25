@@ -16,13 +16,22 @@ module.exports = {
     standby: async function(id) {
         return await db.set(id, { status: 'standby', target: null });
     },
-    nsfwDb: async function() {
-        return nsfwDb;
-    },
     getAll: async function() {
         return await db.all();
     },
     add: async function(key, value) {
         return await db.add(key, value);
+    },
+    nsfwSet: async function(key, value) {
+        return await nsfwDb.set(key, value);
+    },
+    nsfwPush: async function(key, value) {
+        return await nsfwDb.push(key, value);
+    },
+    nsfwGet: async function(key) {
+        return await nsfwDb.get(key);
+    },
+    nsfwDelete: async function(key) {
+        return await nsfwDb.delete(key);
     },
 };
