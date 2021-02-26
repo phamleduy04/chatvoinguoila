@@ -25,7 +25,7 @@ module.exports = async (ctx) => {
     await set(matched, { status: "matched", target: id });
     await set(id, { status: "matched", target: matched });
     const string =
-      'Bạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
+      'Disclaimer: http://bit.ly/3bBHMje\n\nBạn đã ghép đôi thành công! Gởi cú pháp "exit" để kết thúc cuộc hội thoại!';
     const logString = `${id} đã ghép đôi với ${matched}`;
     stats.matching++;
     logging(logString);
