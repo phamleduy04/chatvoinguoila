@@ -1,6 +1,6 @@
 {
   "name": "chatbattu",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
   "scripts": {
     "dev": "cross-env TYPE_RUN=dev bottender dev",
