@@ -8,6 +8,8 @@ const menu = require('../userReq/menu');
 const unmatch = require('../userReq/unmatch');
 const wait = require('../userReq/wait');
 const stop = require('../userReq/stop');
+const { default: PQueue } = require('p-queue');
+const queue = new PQueue({ concurrency: 3 });
 const ms = require('ms');
 module.exports = async (ctx) => {
   const userid = ctx.event.rawEvent.sender.id;
@@ -100,12 +102,14 @@ module.exports = async (ctx) => {
       {
         if (data && data.target) {
           // sleep dề phòng bị spam
-          if (TYPE_RUN == "production") await sleep(9000);
+          if (TYPE_RUN == "production") await sleep(3000);
           try {
-            await ctx.sendMessage(
-              { text: ctx.event.message.text },
-              { recipient: { id: data.target } },
-            );
+            await queue.add(async () => {
+              await ctx.sendMessage(
+                { text: ctx.event.message.text },
+                { recipient: { id: data.target } },
+              );
+            });
           } catch (e) {
             await sendAgain(data.target, ctx.event.message.text);
             console.error(e);
