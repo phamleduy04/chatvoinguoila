@@ -102,7 +102,7 @@ module.exports = async (ctx) => {
       {
         if (data && data.target) {
           // sleep dề phòng bị spam
-          if (TYPE_RUN == "production") await sleep(3000);
+          if (TYPE_RUN == "production") await sleep(5000);
           try {
             await queue.add(async () => {
               await ctx.sendMessage(
