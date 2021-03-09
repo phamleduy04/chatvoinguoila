@@ -30,7 +30,8 @@
     "p-queue": "^6.6.2",
     "pm2": "4.5.5",
     "prettier": "^2.2.1",
-    "quickmongo": "3.0.2"
+    "quickmongo": "3.0.2",
+    "tinyurl": "^1.1.7"
   },
   "devDependencies": {
     "all-contributors-cli": "^6.17.2"

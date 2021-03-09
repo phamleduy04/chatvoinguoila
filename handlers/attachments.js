@@ -1,6 +1,7 @@
 const { get } = require('../functions/database');
 const menu = require('../userReq/menu');
 const isURL = require('is-url');
+const TinyURL = require('tinyurl');
 module.exports = async (ctx, type, url) => {
   if (!type) return;
   if (!isURL(url)) return;
@@ -13,10 +14,20 @@ module.exports = async (ctx, type, url) => {
         await ctx.sendImage(url, { recipient: { id: data.target } });
         break;
       case "video":
-        await ctx.sendVideo(url, { recipient: { id: data.target } });
+        const vidUrl = await TinyURL.shorten(url);
+        await ctx.sendMessage(
+          { text: `Người bên kia đã gởi bạn 1 video: Xem tại ${vidUrl}` },
+          { recipient: { id: data.target } },
+        );
+        // await ctx.sendVideo(url, { recipient: { id: data.target } });
         break;
       case "audio":
-        await ctx.sendAudio(url, { recipient: { id: data.target } });
+        const audioUrl = await TinyURL.shorten(url);
+        await ctx.sendMessage(
+          { text: `Người bên kia đã gởi bạn voice message: Nghe tại ${audioUrl}` },
+          { recipient: { id: data.target } },
+        );
+        // await ctx.sendAudio(url, { recipient: { id: data.target } });
         break;
       case "file":
         await ctx.sendFile(url, { recipient: { id: data.target } });
