@@ -110,8 +110,8 @@ module.exports = async (ctx) => {
                 { text: content },
                 { recipient: { id: data.target } },
               );
+              if (checkBadWord(content)) await badWordWarning(data.target);
             });
-            if (checkBadWord(content)) await badWordWarning(data.target);
           } catch (e) {
             await sendAgain(data.target, ctx.event.message.text);
             console.error(e);
