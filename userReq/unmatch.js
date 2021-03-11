@@ -17,7 +17,7 @@ module.exports = async (ctx) => {
       },
       {
         type: 'postback',
-        title: 'Report người này',
+        title: 'Report người vừa match',
         payload: 'REPORT',
       },
     ]);
