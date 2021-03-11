@@ -53,6 +53,6 @@ module.exports = {
   },
   sendOwner: async function(content) {
     if (!process.env.OWNERID) return;
-    return await client.sendMessage(process.env.OWNERID, content);
+    return await client.sendText(process.env.OWNERID, content);
   },
 };
