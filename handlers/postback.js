@@ -1,6 +1,5 @@
 const wait = require('../userReq/wait');
 const menu = require('../userReq/menu');
-const { get } = require('../functions/database');
 const { getAction, run } = require('@bottender/proposal-conversation');
 // postback = các button
 module.exports = async (ctx) => {
@@ -17,7 +16,7 @@ module.exports = async (ctx) => {
       break;
     }
     case "REPORT": {
-      await run(getAction('confirm-report'));
+      await require('../quickreplies/reportPrompt');
       break;
     }
   }

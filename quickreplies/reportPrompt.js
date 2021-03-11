@@ -1,4 +1,4 @@
-const { registerAction, prompt } = require("@bottender/proposal-conversation");
+const { registerAction, prompt, run, getAction } = require("@bottender/proposal-conversation");
 const { get } = require('../functions/database');
 const { sendOwner } = require('../functions/utils');
 registerAction('confirm-report', async function ask(context, props) {
@@ -9,7 +9,7 @@ registerAction('confirm-report', async function ask(context, props) {
     if (!reportID) reportID = lastMatch;
     if (!reportID) return await context.sendText('Không tìm thấy người bạn muốn báo cáo!\nHãy sử dụng form để report https://forms.gle/MvihGZ9V1iHECYcT7');
     if (!props.result) {
-        await context.sendText(`Bạn có muốn report ${target ? 'người bạn đang match' : 'người bạn đã match trước đó'} không?`, {
+        await context.sendText(`Bạn có muốn report ${target ? 'người bạn đang nói chuyện' : 'người bạn đã match trước đó'} không?`, {
             quickReplies: [
                 {
                     contentType: 'text',
@@ -31,4 +31,8 @@ registerAction('confirm-report', async function ask(context, props) {
         await sendOwner(`NEW REPORT: ${userID} report ${reportID}.`);
     } else if (props.result == 'no') await context.sendText('Đã huỷ report!');
     else await context.sendText('Bot không hiểu ý bạn! Vui lòng thử lại sau!');
+});
+
+module.exports = run(function App() {
+    return getAction('confirm-report');
 });

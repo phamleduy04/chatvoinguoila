@@ -9,6 +9,7 @@ const HandleRead = require('../handlers/read');
 const HandleAudio = require('../handlers/audio');
 const { get, set, add } = require('../functions/database');
 const { readdirSync } = require('fs');
+const { getAction, run } = require('@bottender/proposal-conversation');
 
 readdirSync('./quickreplies/').filter(file => file.endsWith('.js')).forEach(promptFunc => {
   require(`../quickreplies/${promptFunc}`);
