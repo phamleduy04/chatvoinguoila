@@ -42,15 +42,6 @@
     express "^4.17.1"
     lodash "^4.17.15"
 
-"@bottender/proposal-conversation@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@bottender/proposal-conversation/-/proposal-conversation-0.1.0.tgz#339c3f47cd4b07ccbb190289fbfa5612a0107ee7"
-  integrity sha512-LdW/YQS8MXn9rm/HEVbEqHeiRWkuQ2XA7dzj8guMbS1Hol0Un6GT2Rsp3XUDOLp0w8aFgjPn2AK1VoluVsu9aw==
-  dependencies:
-    debug "^4.1.1"
-    invariant "^2.2.4"
-    lodash "^4.17.15"
-
 "@eslint/eslintrc@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.0.tgz#99cc0a0584d72f1df38b900fb062ba995f395547"

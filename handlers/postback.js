@@ -1,5 +1,6 @@
 const wait = require('../userReq/wait');
 const menu = require('../userReq/menu');
+const report = require('../handlers/reportButton');
 // postback = các button
 module.exports = async (ctx) => {
   switch (ctx.event.postback.payload) {
@@ -15,7 +16,7 @@ module.exports = async (ctx) => {
       break;
     }
     case "REPORT": {
-      await require('../quickreplies/reportPrompt');
+      await report(ctx);
       break;
     }
   }
