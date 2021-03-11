@@ -38,7 +38,7 @@ module.exports = {
   checkBadWord: function(string) {
     for (let i = 0; i < badWords.length; i++) {
         const badword = badWords[i];
-        if (string.toLowerCase().includes(badword)) return true;
+        if (string.toLowerCase().split(' ').includes(badword)) return true;
     }
     return false;
   },
