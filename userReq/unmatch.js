@@ -6,8 +6,8 @@ module.exports = async (ctx) => {
   if (data.status !== "matched")
     return ctx.sendText("Bạn hiện tại không có match với ai!");
   else {
-    await standby(data.target);
-    await standby(id);
+    await standby(data.target, id);
+    await standby(id, data.target);
     logging(`${id} đã ngắt kết nói với ${data.target}`);
     await ctx.sendText("Đã ngắt kết nối với đối phương!");
     await ctx.sendMessage(

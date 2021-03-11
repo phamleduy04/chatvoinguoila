@@ -8,6 +8,12 @@ const HandleFile = require('../handlers/file');
 const HandleRead = require('../handlers/read');
 const HandleAudio = require('../handlers/audio');
 const { get, set, add } = require('../functions/database');
+const { readdirSync } = require('fs');
+
+readdirSync('./quickreplies/').filter(file => file.endsWith('.js')).forEach(promptFunc => {
+  require(`../quickreplies/${promptFunc}`);
+});
+
 // waitlist và logarr set global
 global.waitList = null;
 global.logArr = [];
