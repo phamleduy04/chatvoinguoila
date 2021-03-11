@@ -9,5 +9,5 @@ module.exports = async (ctx) => {
     if (!reportID) return await ctx.sendText('Không tìm thấy người bạn muốn báo cáo!\nHãy sử dụng form để report https://forms.gle/MvihGZ9V1iHECYcT7');
 
     await sendOwner(`NEW REPORT: ${userID} report ${reportID}.`);
-    await ctx.sendText('Bạn đã report thành công!');
+    await ctx.sendText(`Bạn đã report thành công!\n\nID của bạn là ${userID}`);
 };
