@@ -1,6 +1,5 @@
 const wait = require('../userReq/wait');
 const menu = require('../userReq/menu');
-const { getAction, run } = require('@bottender/proposal-conversation');
 // postback = các button
 module.exports = async (ctx) => {
   switch (ctx.event.postback.payload) {
