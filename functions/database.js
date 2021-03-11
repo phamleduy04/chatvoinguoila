@@ -13,8 +13,8 @@ module.exports = {
         await sleep(500);
         return await db.set(key, value);
     },
-    standby: async function(id) {
-        return await db.set(id, { status: 'standby', target: null });
+    standby: async function(id, lastMatch) {
+        return await db.set(id, { status: 'standby', target: null, lastMatch: lastMatch ? lastMatch : null });
     },
     getAll: async function() {
         return await db.all();

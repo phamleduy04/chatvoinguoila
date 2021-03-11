@@ -14,7 +14,7 @@
     "pm2": "pm2-runtime start npm -- run start"
   },
   "dependencies": {
-    "@tensorflow/tfjs-node": "3.2.0",
+    "@tensorflow/tfjs-node": "^3.3.0",
     "axios": "^0.21.1",
     "bottender": "1.4.10",
     "cross-env": "^7.0.2",

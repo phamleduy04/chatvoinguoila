@@ -8,6 +8,7 @@ const HandleFile = require('../handlers/file');
 const HandleRead = require('../handlers/read');
 const HandleAudio = require('../handlers/audio');
 const { get, set, add } = require('../functions/database');
+
 // waitlist và logarr set global
 global.waitList = null;
 global.logArr = [];

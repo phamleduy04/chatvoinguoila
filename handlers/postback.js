@@ -1,5 +1,6 @@
 const wait = require('../userReq/wait');
 const menu = require('../userReq/menu');
+const report = require('../handlers/reportButton');
 // postback = các button
 module.exports = async (ctx) => {
   switch (ctx.event.postback.payload) {
@@ -12,6 +13,11 @@ module.exports = async (ctx) => {
         `Chào mừng bạn ${userprofile.name} đã đến với Bất Tử bot!\nKhi bạn bấm nút "Tìm kiếm" có nghĩa là bạn đã đồng ý các điều khoản được ghi ở https://bit.ly/3iV6w81\n\nLưu ý:Nếu bạn ở EU sẽ không sử dụng các nút được, bạn vui lòng nhắn "search" nhé!`,
       );
       await menu(ctx);
+      break;
+    }
+    case "REPORT": {
+      await report(ctx);
+      break;
     }
   }
 };

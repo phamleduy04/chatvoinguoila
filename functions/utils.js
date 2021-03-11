@@ -2,7 +2,7 @@ const { getClient } = require('bottender');
 const { TIMEZONE, TYPE_RUN } = process.env;
 if (TYPE_RUN == 'ci') process.exit(0);
 const client = getClient('messenger');
-
+const { badWords } = require('../assets/blacklistWords.json');
 module.exports = {
   getUserProfile: async function(ctx, userID) {
     if (!userID) return ctx.sendText('userID undefined');
@@ -34,5 +34,25 @@ module.exports = {
     const string = `${timenow} || ${text}`;
     logArr.push(string);
     console.log(string);
+  },
+  checkBadWord: function(string) {
+    for (let i = 0; i < badWords.length; i++) {
+        const badword = badWords[i];
+        if (string.toLowerCase().split(' ').includes(badword)) return true;
+    }
+    return false;
+  },
+  badWordWarning: async function(userid) {
+    await client.sendButtonTemplate(userid, '[SYSTEM] Bot vừa phát hiện từ nằm trong danh sách blacklist!\nNếu người bên kia đang quấy rối bạn, bạn hãy nhấn nút "Report" ở dưới, sau đó exit!\nNếu không bạn có thể bỏ qua tin nhắn này!', [
+      {
+        type: 'postback',
+        title: 'Report',
+        payload: 'REPORT',
+      },
+    ]);
+  },
+  sendOwner: async function(content) {
+    if (!process.env.OWNERID) return;
+    return await client.sendText(process.env.OWNERID, content);
   },
 };

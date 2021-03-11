@@ -2,7 +2,7 @@
 const cooldown = new Set();
 const firstTimeWarn = new Set();
 const { OWNERID, TYPE_RUN } = process.env;
-const { sleep, getUserProfile, sendAgain } = require('../functions/utils');
+const { sleep, getUserProfile, sendAgain, checkBadWord, badWordWarning } = require('../functions/utils');
 const { get, getAll, standby, nsfwGet } = require('../functions/database');
 const menu = require('../userReq/menu');
 const unmatch = require('../userReq/unmatch');
@@ -104,11 +104,13 @@ module.exports = async (ctx) => {
           // sleep dề phòng bị spam
           if (TYPE_RUN == "production") await sleep(5000);
           try {
+            const content = ctx.event.message.text;
             await queue.add(async () => {
               await ctx.sendMessage(
-                { text: ctx.event.message.text },
+                { text: content },
                 { recipient: { id: data.target } },
               );
+              if (checkBadWord(content)) await badWordWarning(data.target);
             });
           } catch (e) {
             await sendAgain(data.target, ctx.event.message.text);
