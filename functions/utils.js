@@ -43,7 +43,7 @@ module.exports = {
     return false;
   },
   badWordWarning: async function(userid) {
-    await client.sendButtonTemplate(userid, '[SYSTEM] Bot vừa phát hiện từ nằm trong danh sách blacklist!\nNếu người bên kia đang quấy rối bạn, bạn hãy nhấn nút report sau đấy hãy exit ra khỏi chat!\nNếu không bạn có thể bỏ qua tin nhắn này!', [
+    await client.sendButtonTemplate(userid, '[SYSTEM] Bot vừa phát hiện từ nằm trong danh sách blacklist!\nNếu người bên kia đang quấy rối bạn, bạn hãy nhấn nút "Report" ở dưới, sau đó exit!\nNếu không bạn có thể bỏ qua tin nhắn này!', [
       {
         type: 'postback',
         title: 'Report',
