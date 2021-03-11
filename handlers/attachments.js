@@ -13,21 +13,32 @@ module.exports = async (ctx, type, url) => {
       case "image":
         await ctx.sendImage(url, { recipient: { id: data.target } });
         break;
-      case "video":
-        const vidUrl = await TinyURL.shorten(url);
-        await ctx.sendMessage(
-          { text: `Người bên kia đã gởi bạn 1 video: Xem tại ${vidUrl}` },
-          { recipient: { id: data.target } },
-        );
-        // await ctx.sendVideo(url, { recipient: { id: data.target } });
+      case "video": {
+        try {
+          await ctx.sendVideo(url, { recipient: { id: data.target } });
+        }
+        catch(e) {
+          console.log(e.message);
+          const vidUrl = await TinyURL.shorten(url);
+          await ctx.sendMessage(
+            { text: `Người bên kia đã gởi bạn 1 video: Xem tại ${vidUrl}` },
+            { recipient: { id: data.target } },
+          );
+        }
         break;
-      case "audio":
-        const audioUrl = await TinyURL.shorten(url);
-        await ctx.sendMessage(
-          { text: `Người bên kia đã gởi bạn voice message: Nghe tại ${audioUrl}` },
-          { recipient: { id: data.target } },
-        );
-        // await ctx.sendAudio(url, { recipient: { id: data.target } });
+      }
+      case "audio": {
+        try {
+          await ctx.sendAudio(url, { recipient: { id: data.target } });
+        }
+        catch(e) {
+          const audioUrl = await TinyURL.shorten(url);
+          await ctx.sendMessage(
+            { text: `Người bên kia đã gởi bạn voice message: Nghe tại ${audioUrl}` },
+            { recipient: { id: data.target } },
+          );
+        }
+      }
         break;
       case "file":
         await ctx.sendFile(url, { recipient: { id: data.target } });
