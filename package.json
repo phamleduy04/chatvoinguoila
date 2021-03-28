@@ -19,7 +19,7 @@
     "bottender": "1.4.10",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
-    "eslint": "7.21.0",
+    "eslint": "7.23.0",
     "is-url": "^1.2.4",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
