@@ -1,4 +1,4 @@
-**Ngày cập nhật: 19/08/2020 (DD/MM/YYYY)**
+**Ngày cập nhật: 29/03/2021 (DD/MM/YYYY)**
 
 ## Điều khoản dịch vụ
 Cảm ơn các bạn đã sử dụng các sản phẩm và dịch vụ của mình. Dịch vụ được cung cấp bởi [mình](https://github.com/phamleduy04). [Thông tin liên hệ](https://github.com/phamleduy04/chatvoinguoila/blob/master/dieukhoan.md#th%C3%B4ng-tin-li%C3%AAn-h%E1%BB%87) sẽ được kèm ở dưới cùng.
