@@ -2,7 +2,7 @@ const { getClient } = require('bottender');
 const { TIMEZONE, TYPE_RUN } = process.env;
 if (TYPE_RUN == 'ci') process.exit(0);
 const client = getClient('messenger');
-const { badWords } = require('../assets/blacklistWords.json');
+const { badWords, badPhrase } = require('../assets/blacklistWords.json');
 module.exports = {
   getUserProfile: async function(ctx, userID) {
     if (!userID) return ctx.sendText('userID undefined');
@@ -39,6 +39,10 @@ module.exports = {
     for (let i = 0; i < badWords.length; i++) {
         const badword = badWords[i];
         if (string.toLowerCase().split(' ').includes(badword)) return true;
+    }
+    for (let i = 0; i < badPhrase.length; i++) {
+      const badphrase = badPhrase[i];
+      if (string.includes(badphrase)) return true;
     }
     return false;
   },
