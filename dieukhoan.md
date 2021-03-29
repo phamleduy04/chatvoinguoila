@@ -19,6 +19,7 @@ Các thông tin cá nhân của người dùng có thể được mình sử d�
 - Gởi virus, phần mềm độc hại hoặc DDoS.
 - Lừa đảo người khác (bao gồm đa cấp xD)
 - Gởi các hình ảnh được mác NSFW nếu chưa được người bên kia đồng ý. 
+- Quảng cáo dưới mọi hình thức
 
 ## Phạm vi sử dụng thông tin
 -  Mình cam kết sử dụng thông tin trong nội bộ và theo đúng những mục đích đã đề ra.
