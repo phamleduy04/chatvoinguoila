@@ -73,6 +73,12 @@ module.exports = async (ctx) => {
           `Bot hiện tại có ${allUser.length} người dùng, ${messages} tin nhắn đã được gởi, ${matching} lần match, ${images} số lần gởi ảnh, ${videos} lần gởi video, ${audio} lần gởi voice message và ${file} lần gởi file!`,
         );
       }
+      case "getLabel": {
+        client.getLabelList().then(res => {
+          console.log(res);
+        });
+        return await ctx.sendText('Check console');
+      }
       case "locallog":
         console.log(logArr);
         return await ctx.sendText("check console");
