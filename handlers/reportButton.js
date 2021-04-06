@@ -1,5 +1,5 @@
-const { get } = require('../functions/database');
-const { sendOwner, setLabel } = require('../functions/utils');
+const { get, setLabel } = require('../functions/database');
+const { sendOwner } = require('../functions/utils');
 module.exports = async (ctx) => {
     const userID = ctx.event.rawEvent.sender.id;
     const data = await get(userID);
