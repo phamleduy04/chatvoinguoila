@@ -1,5 +1,5 @@
 const { TYPE_RUN } = process.env;
-const { sleep } = require('../functions/utils');
+const { sleep, createLabel } = require('../functions/utils');
 const HandlePostBack = require('../handlers/postback');
 const HandleMessage = require('../handlers/messages');
 const HandleImage = require('../handlers/image');
@@ -24,6 +24,11 @@ global.stats = {
 const ms = require('ms');
 
 module.exports = async function App(ctx) {
+  let reportLabel = await get('report-label');
+  let reportedLabel = await get('reported-label');
+
+  if (!reportLabel) reportLabel = createLabel('report', 'report-label');
+  if (!reportedLabel) reportedLabel = createLabel('bi-report', 'reported-label');
   /*
   Postback: GET_STARTED (lúc vừa sử dụng bot)
             START_MATCHING (lúc bấm nút "tìm kiếm")

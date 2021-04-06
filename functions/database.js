@@ -35,4 +35,7 @@ module.exports = {
     nsfwDelete: async function(key) {
         return await nsfwDb.delete(key);
     },
+    has: async function(key) {
+        return await db.has(key);
+    },
 };

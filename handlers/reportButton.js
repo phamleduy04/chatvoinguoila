@@ -1,5 +1,5 @@
 const { get } = require('../functions/database');
-const { sendOwner } = require('../functions/utils');
+const { sendOwner, setLabel } = require('../functions/utils');
 module.exports = async (ctx) => {
     const userID = ctx.event.rawEvent.sender.id;
     const data = await get(userID);
@@ -9,5 +9,7 @@ module.exports = async (ctx) => {
     if (!reportID) return await ctx.sendText('Không tìm thấy người bạn muốn báo cáo!\nHãy sử dụng form để report https://forms.gle/MvihGZ9V1iHECYcT7');
 
     await sendOwner(`NEW REPORT: ${userID} report ${reportID}.`);
+    await setLabel(userID, 'report');
+    await setLabel(reportID, 'bi-report');
     await ctx.sendText(`Bạn đã report thành công!\n\nID của bạn là ${userID}\n\nLưu ý: Chỉ report những trường hợp vi phạm điều khoản! Nếu lạm dụng nút report sẽ bị cấm sử dụng tính năng này!`);
 };

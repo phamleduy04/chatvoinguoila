@@ -3,6 +3,7 @@ const { TIMEZONE, TYPE_RUN } = process.env;
 if (TYPE_RUN == 'ci') process.exit(0);
 const client = getClient('messenger');
 const { badWords, badPhrase } = require('../assets/blacklistWords.json');
+const { set, get } = require('./database');
 module.exports = {
   getUserProfile: async function(ctx, userID) {
     if (!userID) return ctx.sendText('userID undefined');
@@ -58,5 +59,18 @@ module.exports = {
   sendOwner: async function(content) {
     if (!process.env.OWNERID) return;
     return await client.sendText(process.env.OWNERID, content);
+  },
+  createLabel: async function(labelName, key) {
+    if (!labelName || !key) return null;
+    client.createLabel(labelName).then(async label => {
+      await set(key, label.id);
+      return label.id;
+    });
+  },
+  setLabel: async function(id, labelName) {
+    if (!id || !labelName) return null;
+    const labelID = await get(labelName);
+    if (!labelID) return null;
+    return await client.associateLabel(id, labelID);
   },
 };
