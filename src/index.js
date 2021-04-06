@@ -27,8 +27,8 @@ module.exports = async function App(ctx) {
   let reportLabel = await get('report-label');
   let reportedLabel = await get('reported-label');
 
-  if (!reportLabel) reportLabel = createLabel('report', 'report-label');
-  if (!reportedLabel) reportedLabel = createLabel('bi-report', 'reported-label');
+  if (!reportLabel) reportLabel = await createLabel('report', 'report-label');
+  if (!reportedLabel) reportedLabel = await createLabel('bi-report', 'reported-label');
   /*
   Postback: GET_STARTED (lúc vừa sử dụng bot)
             START_MATCHING (lúc bấm nút "tìm kiếm")
