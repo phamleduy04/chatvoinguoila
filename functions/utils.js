@@ -1,6 +1,8 @@
 const { TIMEZONE, TYPE_RUN } = process.env;
 if (TYPE_RUN == 'ci') process.exit(0);
 const { badWords, badPhrase } = require('../assets/blacklistWords.json');
+const { getClient } = require('bottender');
+global.client = getClient('messenger');
 module.exports = {
   getUserProfile: async function(ctx, userID) {
     if (!userID) return ctx.sendText('userID undefined');

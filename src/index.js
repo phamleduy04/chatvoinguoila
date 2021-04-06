@@ -8,8 +8,6 @@ const HandleFile = require('../handlers/file');
 const HandleRead = require('../handlers/read');
 const HandleAudio = require('../handlers/audio');
 const { sleep } = require('../functions/utils');
-const { getClient } = require('bottender');
-global.client = getClient('messenger');
 
 // waitlist và logarr set global
 global.waitList = null;
