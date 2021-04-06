@@ -1,5 +1,4 @@
 const { TYPE_RUN } = process.env;
-const { sleep, createLabel } = require('../functions/utils');
 const HandlePostBack = require('../handlers/postback');
 const HandleMessage = require('../handlers/messages');
 const HandleImage = require('../handlers/image');
@@ -8,6 +7,7 @@ const HandleFile = require('../handlers/file');
 const HandleRead = require('../handlers/read');
 const HandleAudio = require('../handlers/audio');
 const { get, set, add } = require('../functions/database');
+const { sleep, createLabel } = require('../functions/utils');
 
 // waitlist và logarr set global
 global.waitList = null;

@@ -19,7 +19,6 @@ module.exports = {
     return await client.markSeen(userID);
   },
   sleep: async function(ms) {
-    // eslint-disable-next-line no-undef
     return new Promise((res) => setTimeout(res, ms));
   },
   sendAgain: async function(userid, content) {
