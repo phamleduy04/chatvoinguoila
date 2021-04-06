@@ -1,4 +1,4 @@
-const { get, setLabel } = require('../functions/database');
+const { get } = require('../functions/database');
 const { sendOwner } = require('../functions/utils');
 module.exports = async (ctx) => {
     const userID = ctx.event.rawEvent.sender.id;
@@ -13,3 +13,10 @@ module.exports = async (ctx) => {
     await setLabel(reportID, 'bi-report');
     await ctx.sendText(`Bạn đã report thành công!\n\nID của bạn là ${userID}\n\nLưu ý: Chỉ report những trường hợp vi phạm điều khoản! Nếu lạm dụng nút report sẽ bị cấm sử dụng tính năng này!`);
 };
+
+async function setLabel(id, labelName) {
+    if (!id || !labelName) return null;
+    const labelID = await get(labelName);
+    if (!labelID) return null;
+    return await client.associateLabel(id, labelID);
+}

@@ -1,7 +1,5 @@
-const { getClient } = require('bottender');
 const { TIMEZONE, TYPE_RUN } = process.env;
 if (TYPE_RUN == 'ci') process.exit(0);
-const client = getClient('messenger');
 const { badWords, badPhrase } = require('../assets/blacklistWords.json');
 module.exports = {
   getUserProfile: async function(ctx, userID) {

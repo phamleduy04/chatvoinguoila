@@ -1,5 +1,5 @@
 const { TYPE_RUN } = process.env;
-const { get, set, add, createLabel } = require('../functions/database');
+const { get, set, add } = require('../functions/database');
 const HandlePostBack = require('../handlers/postback');
 const HandleMessage = require('../handlers/messages');
 const HandleImage = require('../handlers/image');
@@ -8,6 +8,8 @@ const HandleFile = require('../handlers/file');
 const HandleRead = require('../handlers/read');
 const HandleAudio = require('../handlers/audio');
 const { sleep } = require('../functions/utils');
+const { getClient } = require('bottender');
+global.client = getClient('messenger');
 
 // waitlist và logarr set global
 global.waitList = null;
@@ -79,3 +81,11 @@ setInterval(async () => {
 }, ms('10m'));
 
 if (TYPE_RUN == 'ci') process.exit();
+
+async function createLabel(labelName, key) {
+  if (!labelName || !key) return null;
+  client.createLabel(labelName).then(async label => {
+    await set(key, label.id);
+    return label.id;
+  });
+};
