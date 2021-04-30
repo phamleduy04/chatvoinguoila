@@ -80,6 +80,7 @@ setInterval(async () => {
 
 if (TYPE_RUN == 'ci') process.exit();
 
+/*
 async function createLabel(labelName, key) {
   if (!labelName || !key) return null;
   client.createLabel(labelName).then(async label => {
@@ -87,3 +88,4 @@ async function createLabel(labelName, key) {
     return label.id;
   });
 };
+*/
