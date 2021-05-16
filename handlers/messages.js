@@ -31,7 +31,7 @@ module.exports = async (ctx) => {
   if (!data) await standby(userid);
   const msgText = ctx.event.message.text.toLowerCase();
   // những lệnh chỉ có owner xài được
-  if (userid == OWNERID) {
+  if (userid == OWNERID || userid == process.env.OWNERID2) {
     if (msgText.startsWith("sendall")) {
       if (!msgText.includes(" ")) return ctx.sendText("Nhập nội dung cần thông báo");
       const content = ctx.event.message.text.split(" ").slice(1).join(" ");
