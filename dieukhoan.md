@@ -1,4 +1,4 @@
-**Ngày cập nhật: 15/05/2021 (DD/MM/YYYY)**
+**Ngày cập nhật: 17/05/2021 (DD/MM/YYYY)**
 
 ## Điều khoản dịch vụ
 Cảm ơn các bạn đã sử dụng các sản phẩm và dịch vụ của mình. Dịch vụ được cung cấp bởi [mình](https://github.com/phamleduy04). [Thông tin liên hệ](https://github.com/phamleduy04/chatvoinguoila/blob/master/dieukhoan.md#th%C3%B4ng-tin-li%C3%AAn-h%E1%BB%87) sẽ được kèm ở dưới cùng.
@@ -20,6 +20,7 @@ Các thông tin cá nhân của người dùng có thể được mình sử d�
 - Lừa đảo người khác (bao gồm đa cấp xD)
 - Gởi các hình ảnh được mác NSFW (Not safe for work).
 - Quảng cáo dưới mọi hình thức
+- Tìm kiếm FWB, ONS trong page.
 
 ## Phạm vi sử dụng thông tin
 -  Mình cam kết sử dụng thông tin trong nội bộ và theo đúng những mục đích đã đề ra.
