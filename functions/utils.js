@@ -22,7 +22,7 @@ module.exports = {
   },
   sendAgain: async function(userid, content) {
     await module.exports.sleep(5000);
-    return await client.sendMessage(userid, { text: content });
+    return await client.sendMessage(userid, { text: content }, { messagingType: 'MESSAGE_TAG', tag: 'SEND_AGAIN' });
   },
   logging: function(text) {
     if (!text) return;
@@ -56,6 +56,7 @@ module.exports = {
   },
   sendOwner: async function(content) {
     if (!process.env.OWNERID) return;
+    if (process.env.OWNERID2) await client.sendText(process.env.OWNERID2, content);
     return await client.sendText(process.env.OWNERID, content);
   },
 };
