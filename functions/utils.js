@@ -22,7 +22,7 @@ module.exports = {
   },
   sendAgain: async function(userid, content) {
     await module.exports.sleep(5000);
-    return await client.sendMessage(userid, { text: content }, { messagingType: 'MESSAGE_TAG', tag: 'SEND_AGAIN' });
+    return await client.sendMessage(userid, { text: content }, { messagingType: 'MESSAGE_TAG', tag: 'ACCOUNT_UPDATE' });
   },
   logging: function(text) {
     if (!text) return;
