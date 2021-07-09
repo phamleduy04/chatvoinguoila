@@ -2,7 +2,7 @@
 const cooldown = new Set();
 const firstTimeWarn = new Set();
 const { OWNERID, TYPE_RUN } = process.env;
-const { sleep, getUserProfile, sendAgain, checkBadWord, badWordWarning } = require('../functions/utils');
+const { sleep, getUserProfile, checkBadWord, badWordWarning } = require('../functions/utils');
 const { get, getAll, standby, nsfwGet } = require('../functions/database');
 const menu = require('../userReq/menu');
 const unmatch = require('../userReq/unmatch');
@@ -119,7 +119,6 @@ module.exports = async (ctx) => {
               if (checkBadWord(content)) await badWordWarning(data.target);
             });
           } catch (e) {
-            await sendAgain(data.target, ctx.event.message.text);
             console.error(e);
           }
         } else menu(ctx);
