@@ -16,7 +16,7 @@
   "dependencies": {
     "@tensorflow/tfjs-node": "3.7.0",
     "axios": "^0.21.1",
-    "bottender": "1.4.10",
+    "bottender": "^1.5.1-alpha.9",
     "cross-env": "^7.0.2",
     "dotenv": "10.0.0",
     "eslint": "7.29.0",

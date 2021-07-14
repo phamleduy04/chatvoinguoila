@@ -30,10 +30,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@bottender/express@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@bottender/express/-/express-1.4.0.tgz#47dd92a924e6d26aea81385fbc6d851392603270"
-  integrity sha512-vmsrp1wlfHqFHzv0t2AE1y/4hd/2rdB++Y54+XwJtZlYj1uPQb5dLwo8Ii1Pi23OOMVH/d4Qg0acD2KeK0xhDg==
+"@bottender/express@^1.5.1-alpha.5":
+  version "1.5.1-alpha.5"
+  resolved "https://registry.yarnpkg.com/@bottender/express/-/express-1.5.1-alpha.5.tgz#0d13c902a391384033b2c036f9e3ea1c33311a23"
+  integrity sha512-1a3llaGVurdeWdU6gTDNqcYrct0IciIn5VSEvWc9SOdg1xFJBgORb27ZQ5uK5SoDnzACw3u2XkzkiE3SL/AHiQ==
   dependencies:
     "@types/body-parser" "^1.19.0"
     "@types/express" "^4.17.2"
@@ -355,6 +355,11 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
+"@types/append-query@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/append-query/-/append-query-2.0.1.tgz#06ee71ce0a634757a26a6da22872b6b0c2067195"
+  integrity sha512-L/RxncHj5Wh8B0A5yGTYQbCu+YVbrbtuPaemp/yrQCy1du/qYqEnQBgZoipeSYhTSJoTqRJGLqmnbUOn5iu0cQ==
+
 "@types/body-parser@*", "@types/body-parser@^1.19.0":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
@@ -514,6 +519,11 @@
   version "8.10.66"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.66.tgz#dd035d409df322acc83dff62a602f12a5783bbb3"
   integrity sha512-tktOkFUA4kXx2hhhrB8bIFb5TbwzS4uOhKEmwiD+NoiL0qtP2OQ9mFldbgD4dV1djrlBYP6eBuQZiWjuHUpqFw==
+
+"@types/object.fromentries@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/object.fromentries/-/object.fromentries-2.0.1.tgz#7b1bc05244e67d4b4ad46f2b6d5ad5bd035f3bdb"
+  integrity sha512-lP1hS37U5G83Z5xzyEIMIBKjWlAwu2AnZOHCsWDPitY7lmOBDqSiVtdJZVeUJdGEbcJZBG3sif52XHf7WvKrgQ==
 
 "@types/offscreencanvas@~2019.3.0":
   version "2019.3.0"
@@ -1114,7 +1124,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axios-error@^1.0.0-beta.16:
+axios-error@^1.0.0-beta.27, axios-error@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/axios-error/-/axios-error-1.0.4.tgz#020b3708c5319c0b7f03fd136efa27bd3925e26b"
   integrity sha512-ay1l7dXNW288c39KcNAijpE3w8X3tP4V3Hf5yttKp4Kacrq5mnL7s0Z9GXYHRProTvRXytvs4SOriBlsGcVlfA==
@@ -1205,12 +1215,12 @@ boolean@^3.0.2:
   resolved "https://registry.yarnpkg.com/boolean/-/boolean-3.1.2.tgz#e30f210a26b02458482a8cc353ab06f262a780c2"
   integrity sha512-YN6UmV0FfLlBVvRvNPx3pz5W/mUoYB24J4WSXOKP/OOJpi+Oq6WYqPaNTHzjI0QzwWtnvEd5CGYyQPgp1jFxnw==
 
-bottender@1.4.10:
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/bottender/-/bottender-1.4.10.tgz#b76d0decf0cbef37b976b4e97a0660c19063ddb1"
-  integrity sha512-LC/HVdK8+dZXeEh1/seBheOAfDPwDLYH/7yvc0vamw1BxP80vPPOIG+RWS1zWU7U1kT56k4cD1KpBNzfuoH9YQ==
+bottender@^1.5.1-alpha.9:
+  version "1.5.1-alpha.9"
+  resolved "https://registry.yarnpkg.com/bottender/-/bottender-1.5.1-alpha.9.tgz#f54d6d238f4829199c6c00a3ac5484d8bf1926c4"
+  integrity sha512-4IKWbwTpUocbF9lp4nABCGCeco8sYOVj7A3gOCuZ1xEGvg0l+nFpqcn8yk+ibItRaBEJux8C0n7Su81l/qcSww==
   dependencies:
-    "@bottender/express" "^1.4.0"
+    "@bottender/express" "^1.5.1-alpha.5"
     "@hapi/joi" "^15.1.1"
     "@slack/rtm-api" "^5.0.3"
     "@types/debug" "^4.1.5"
@@ -1225,12 +1235,14 @@ bottender@1.4.10:
     "@types/lodash" "^4.14.149"
     "@types/lru-cache" "^5.1.0"
     "@types/mongodb" "^3.3.16"
+    "@types/object.fromentries" "^2.0.0"
     "@types/shortid" "^0.0.29"
     "@types/update-notifier" "^4.1.0"
     "@types/warning" "^3.0.0"
     arg "^4.1.3"
     axios "^0.19.2"
-    axios-error "^1.0.0-beta.16"
+    axios-error "^1.0.0-beta.27"
+    body-parser "^1.19.0"
     chalk "~2.4.2"
     cli-table3 "^0.5.1"
     date-fns "^2.10.0"
@@ -1239,9 +1251,9 @@ bottender@1.4.10:
     delay "^4.3.0"
     dotenv "^8.2.0"
     express "^4.17.1"
+    facebook-batch "1.0.0-beta.32"
     figures "^3.2.0"
     file-type "^14.1.3"
-    fromentries "^1.2.0"
     fs-extra "^8.1.0"
     hasha "^5.2.0"
     import-fresh "^3.2.1"
@@ -1252,26 +1264,28 @@ bottender@1.4.10:
     jsonfile "^6.0.0"
     lodash "^4.17.15"
     lru-cache "^5.1.1"
-    messaging-api-common "1.0.0-beta.16"
-    messaging-api-line "1.0.0-beta.20"
-    messaging-api-messenger "1.0.0-beta.18"
-    messaging-api-slack "1.0.0-beta.16"
-    messaging-api-telegram "1.0.0-beta.16"
-    messaging-api-viber "1.0.0-beta.16"
-    messenger-batch "^0.3.1"
+    messaging-api-common "1.0.0-beta.29"
+    messaging-api-line "1.0.0-beta.33"
+    messaging-api-messenger "1.0.0-beta.33"
+    messaging-api-slack "1.0.0-beta.33"
+    messaging-api-telegram "1.0.0-beta.33"
+    messaging-api-viber "1.0.0-beta.33"
     minimist "^1.2.0"
     mongodb "^3.5.4"
-    ngrok "^3.2.5"
+    ngrok "^3.4.1"
     nodemon "^2.0.2"
+    object.fromentries "^2.0.2"
     p-map "^3.0.0"
     p-props "^3.1.0"
     pascal-case "^3.1.1"
+    path-to-regexp "^6.1.0"
     pkg-dir "^4.2.0"
     prompt-confirm "^2.0.4"
     read-chunk "^3.2.0"
     readline "^1.3.0"
     recursive-readdir "^2.2.2"
     shortid "^2.2.15"
+    type-fest "^0.13.1"
     update-notifier "^4.1.0"
     warning "^4.0.3"
 
@@ -2015,6 +2029,28 @@ es-abstract@^1.18.0-next.1:
     string.prototype.trimend "^1.0.3"
     string.prototype.trimstart "^1.0.3"
 
+es-abstract@^1.18.0-next.2:
+  version "1.18.3"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.18.3.tgz#25c4c3380a27aa203c44b2b685bba94da31b63e0"
+  integrity sha512-nQIr12dxV7SSxE6r6f1l3DtAeEYdsGpps13dR0TwJg1S8gyp4ZPgy3FZcHBgbiQqnoqSTb+oC+kO4UQ0C/J8vw==
+  dependencies:
+    call-bind "^1.0.2"
+    es-to-primitive "^1.2.1"
+    function-bind "^1.1.1"
+    get-intrinsic "^1.1.1"
+    has "^1.0.3"
+    has-symbols "^1.0.2"
+    is-callable "^1.2.3"
+    is-negative-zero "^2.0.1"
+    is-regex "^1.1.3"
+    is-string "^1.0.6"
+    object-inspect "^1.10.3"
+    object-keys "^1.1.1"
+    object.assign "^4.1.2"
+    string.prototype.trimend "^1.0.4"
+    string.prototype.trimstart "^1.0.4"
+    unbox-primitive "^1.0.1"
+
 es-to-primitive@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/es-to-primitive/-/es-to-primitive-1.2.1.tgz#e55cd4c9cdc188bcefb03b366c736323fc5c898a"
@@ -2288,6 +2324,14 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
+facebook-batch@1.0.0-beta.32:
+  version "1.0.0-beta.32"
+  resolved "https://registry.yarnpkg.com/facebook-batch/-/facebook-batch-1.0.0-beta.32.tgz#e60316f81e31d3ea4d87d4cc56ebd43c8780a412"
+  integrity sha512-DI4Uezes+f8s/HDLdE7QGQrWoCEmdBXprcGzbQewQJKfQd1W8IofGeKHbfQxMEkzoS4Ob+t6nJtdip8cEOV7GQ==
+  dependencies:
+    messaging-api-messenger "^1.0.0-beta.31"
+    type-fest "^0.15.1"
+
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
@@ -2471,11 +2515,6 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-fromentries@^1.2.0:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/fromentries/-/fromentries-1.3.2.tgz#e4bca6808816bf8f93b52750f1127f5a6fd86e3a"
-  integrity sha512-cHEpEQHUg0f8XdtZCc2ZAhrHzKzT0MrFUTcvx+hfxYu7rGMDc5SKoXFh+n4YigxsHXRzc6OrCshdR1bWH6HHyg==
-
 fs-extra@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-8.1.0.tgz#49d43c45a88cd9677668cb7be1b46efdb8d2e1c0"
@@ -2546,7 +2585,7 @@ get-caller-file@^2.0.1, get-caller-file@^2.0.5:
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
   integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
 
-get-intrinsic@^1.0.2:
+get-intrinsic@^1.0.2, get-intrinsic@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.1.1.tgz#15f59f376f855c446963948f0d24cd3637b4abc6"
   integrity sha512-kWZrnVM42QCiEA2Ig1bG8zjoIMOgxWwYCEeNdwY6Tv/cOSeGpcoX4pXHfKUxNKVoArnrEr2e9srnAxxGIraS9Q==
@@ -2702,6 +2741,11 @@ har-validator@~5.1.3:
     ajv "^6.12.3"
     har-schema "^2.0.0"
 
+has-bigints@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/has-bigints/-/has-bigints-1.0.1.tgz#64fe6acb020673e3b78db035a5af69aa9d07b113"
+  integrity sha512-LSBS2LjbNBTf6287JEbEzvJgftkF5qFkmCo9hDRpAzKhUOlJ+hx8dd4USs00SgsUNwc4617J9ki5YtEClM2ffA==
+
 has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
@@ -2716,6 +2760,11 @@ has-symbols@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.1.tgz#9f5214758a44196c406d9bd76cebf81ec2dd31e8"
   integrity sha512-PLcsoqu++dmEIZB+6totNFKq/7Do+Z0u4oT0zKOJNl3lYK6vGwwu2hjHs+68OEZbTjiUE9bgOABXbP/GvrS0Kg==
+
+has-symbols@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.2.tgz#165d3070c00309752a1236a479331e3ac56f1423"
+  integrity sha512-chXa79rL/UC2KlX17jo3vRGz0azaWEx5tGqZg5pO3NUyEJVB17dMruQlzCCOfUvElghKcm5194+BCRvi2Rv/Gw==
 
 has-unicode@^2.0.0:
   version "2.0.1"
@@ -2969,6 +3018,11 @@ is-arrayish@^0.2.1:
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
   integrity sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0=
 
+is-bigint@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/is-bigint/-/is-bigint-1.0.2.tgz#ffb381442503235ad245ea89e45b3dbff040ee5a"
+  integrity sha512-0JV5+SOCQkIdzjBK9buARcV804Ddu7A0Qet6sHi3FimE9ne6m4BGQZfRn+NZiXbBk4F4XmHfDZIipLj9pX8dSA==
+
 is-binary-path@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-2.1.0.tgz#ea1f7f3b80f064236e83470f86c09c254fb45b09"
@@ -2976,12 +3030,19 @@ is-binary-path@~2.1.0:
   dependencies:
     binary-extensions "^2.0.0"
 
+is-boolean-object@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/is-boolean-object/-/is-boolean-object-1.1.1.tgz#3c0878f035cb821228d350d2e1e36719716a3de8"
+  integrity sha512-bXdQWkECBUIAcCkeH1unwJLIpZYaa5VvuygSyS/c2lf719mTKZDU5UdDRlpd01UjADgmW8RfqaP+mRaVPdr/Ng==
+  dependencies:
+    call-bind "^1.0.2"
+
 is-buffer@^1.0.2, is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
 
-is-callable@^1.1.4, is-callable@^1.2.2:
+is-callable@^1.1.4, is-callable@^1.2.2, is-callable@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.2.3.tgz#8b1e0500b73a1d76c70487636f368e519de8db8e"
   integrity sha512-J1DcMe8UYTBSrKezuIUTUwjXsho29693unXM2YhJUTR2txK/eG47bvNa/wipPFmZFgr/N6f1GA66dv0mEyTIyQ==
@@ -3089,6 +3150,11 @@ is-npm@^4.0.0:
   resolved "https://registry.yarnpkg.com/is-npm/-/is-npm-4.0.0.tgz#c90dd8380696df87a7a6d823c20d0b12bbe3c84d"
   integrity sha512-96ECIfh9xtDDlPylNPXhzjsykHsMJZ18ASpaWzQyBr4YRTcVjUvzaHayDAES2oU/3KpljhHUjtSRNiDwi0F0ig==
 
+is-number-object@^1.0.4:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/is-number-object/-/is-number-object-1.0.5.tgz#6edfaeed7950cff19afedce9fbfca9ee6dd289eb"
+  integrity sha512-RU0lI/n95pMoUKu9v1BZP5MBcZuNSVJkMkAG2dJqC4z2GlkGUNeH68SuHuBKBD/XFe+LHZ+f9BKkLET60Niedw==
+
 is-number@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-3.0.0.tgz#24fd6201a4782cf50561c810276afc7d12d71195"
@@ -3131,6 +3197,14 @@ is-regex@^1.1.1:
     call-bind "^1.0.2"
     has-symbols "^1.0.1"
 
+is-regex@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/is-regex/-/is-regex-1.1.3.tgz#d029f9aff6448b93ebbe3f33dac71511fdcbef9f"
+  integrity sha512-qSVXFz28HM7y+IWX6vLCsexdlvzT1PJNFSBuaQLQ5o0IEw8UDYW6/2+eCMVyIsbM8CNLX2a/QWmSpyxYEHY7CQ==
+  dependencies:
+    call-bind "^1.0.2"
+    has-symbols "^1.0.2"
+
 is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
@@ -3141,12 +3215,24 @@ is-stream@^2.0.0:
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-2.0.0.tgz#bde9c32680d6fae04129d6ac9d921ce7815f78e3"
   integrity sha512-XCoy+WlUr7d1+Z8GgSuXmpuUFC9fOhRXglJMx+dwLKTkL44Cjd4W1Z5P+BQZpr+cR93aGP4S/s7Ftw6Nd/kiEw==
 
+is-string@^1.0.5, is-string@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/is-string/-/is-string-1.0.6.tgz#3fe5d5992fb0d93404f32584d4b0179a71b54a5f"
+  integrity sha512-2gdzbKUuqtQ3lYNrUTQYoClPhm7oQu4UdpSZMp1/DGgkHBT8E2Z1l0yMdb6D4zNAxwDiMv8MdulKROJGNl0Q0w==
+
 is-symbol@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.3.tgz#38e1014b9e6329be0de9d24a414fd7441ec61937"
   integrity sha512-OwijhaRSgqvhm/0ZdAcXNZt9lYdKFpcRDT5ULUuYXPoT794UNOdU+gpT6Rzo7b4V2HUl/op6GqY894AZwv9faQ==
   dependencies:
     has-symbols "^1.0.1"
+
+is-symbol@^1.0.3:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.4.tgz#a6dac93b635b063ca6872236de88910a57af139c"
+  integrity sha512-C/CPBqKWnvdcxqIARxyOh4v1UUEOCHpgDa0WYgpKDFMszcrPcffg5uhwSgPCLD2WWxmq6isisz87tzT01tuGhg==
+  dependencies:
+    has-symbols "^1.0.2"
 
 is-typedarray@^1.0.0, is-typedarray@~1.0.0:
   version "1.0.0"
@@ -3530,11 +3616,14 @@ merge-descriptors@1.0.1:
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
   integrity sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=
 
-messaging-api-common@1.0.0-beta.16:
-  version "1.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/messaging-api-common/-/messaging-api-common-1.0.0-beta.16.tgz#e07ce89556ed9976ce4b809c817d9fa4cca5f9a2"
-  integrity sha512-QoUnHLa4akSnkw3jjrYjJPQwzxa65l4xR82UGABtFOxkPje6nzyv7edXHwpVEXohdp+2A6AHrKXK2ok389uIoQ==
+messaging-api-common@1.0.0-beta.29:
+  version "1.0.0-beta.29"
+  resolved "https://registry.yarnpkg.com/messaging-api-common/-/messaging-api-common-1.0.0-beta.29.tgz#70e1fb149a81b04f675c41a5e4aa8b1850507309"
+  integrity sha512-kR4aEx4qN9DkqmDV6s0xsnHkI8QwrvlKZhZ2ivgjoofGB/lAFhYsv4e5gTUEiaxo6c6L2fh3iU+9qYMYKO/nWw==
   dependencies:
+    "@types/debug" "^4.1.5"
+    "@types/lodash" "^4.14.156"
+    "@types/url-join" "^4.0.0"
     axios "^0.19.2"
     camel-case "^4.1.1"
     debug "^4.1.1"
@@ -3544,7 +3633,7 @@ messaging-api-common@1.0.0-beta.16:
     snake-case "^3.0.3"
     url-join "^4.0.1"
 
-messaging-api-common@^1.0.0-beta.16:
+messaging-api-common@^1.0.0-beta.29, messaging-api-common@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/messaging-api-common/-/messaging-api-common-1.0.4.tgz#793d5cca5e97793ecaea238ff61bd901cfffac56"
   integrity sha512-riYl+FnUtbUxxBfmUXBZSw4akK9hWAGGobulT81DK4Y5s/zeCKQcwa5uKHLG5HrR0RCtATIj7tQM8J29z61jRg==
@@ -3561,68 +3650,92 @@ messaging-api-common@^1.0.0-beta.16:
     snake-case "^3.0.3"
     url-join "^4.0.1"
 
-messaging-api-line@1.0.0-beta.20:
-  version "1.0.0-beta.20"
-  resolved "https://registry.yarnpkg.com/messaging-api-line/-/messaging-api-line-1.0.0-beta.20.tgz#7470ff978b43ccf0d7d291cd74c0008c78a1284d"
-  integrity sha512-LNWdAc59YuMh5pp4QZkO692pdkpXe6UOLwcXWNu6ABSxZoJnO6ss49m9bQcx6p8nOc5xbnRqIJAyRt3uNDNxAA==
+messaging-api-line@1.0.0-beta.33:
+  version "1.0.0-beta.33"
+  resolved "https://registry.yarnpkg.com/messaging-api-line/-/messaging-api-line-1.0.0-beta.33.tgz#dab867e25f74d24d61b71a11841a49499ac5032d"
+  integrity sha512-gvCmv1T9ExMIjMlr9CecREUrgUscDI+tmEJP6NlZx5Ly7fCKUrpToNT/N8eFKxjoQ85YTSnXupazXSklpclExA==
   dependencies:
+    "@types/warning" "^3.0.0"
     axios "^0.19.2"
-    axios-error "^1.0.0-beta.16"
+    axios-error "^1.0.0-beta.27"
     image-type "^4.1.0"
-    invariant "^2.2.4"
-    messaging-api-common "^1.0.0-beta.16"
+    messaging-api-common "^1.0.0-beta.29"
+    ts-invariant "^0.4.4"
+    type-fest "^0.15.1"
     warning "^4.0.3"
 
-messaging-api-messenger@1.0.0-beta.18:
-  version "1.0.0-beta.18"
-  resolved "https://registry.yarnpkg.com/messaging-api-messenger/-/messaging-api-messenger-1.0.0-beta.18.tgz#50ef461dc3743712d7bb459bf5c0d6e1893b342e"
-  integrity sha512-2epVMxyGReG/mmKn0ugYEEZr6sHrdtz7Np4yRs855zqTOqzNzLYvfDwpEUwNbbGe0serDsyt8s4s2tbr5FJPbg==
+messaging-api-messenger@1.0.0-beta.33:
+  version "1.0.0-beta.33"
+  resolved "https://registry.yarnpkg.com/messaging-api-messenger/-/messaging-api-messenger-1.0.0-beta.33.tgz#8856d174a400fa1401afb9f7aef8aba53a216189"
+  integrity sha512-iGIUzaqRaddt+Wt7mz5hyo/5dQaq0WHkEDoSRctVmYnEyIgZtyvIVsxOp9RKWPY4U5KDjkMwLjgt7y8/TD8ttQ==
   dependencies:
+    "@types/append-query" "^2.0.0"
+    "@types/lodash" "^4.14.156"
+    "@types/warning" "^3.0.0"
     append-query "^2.1.0"
     axios "^0.19.2"
-    axios-error "^1.0.0-beta.16"
+    axios-error "^1.0.0-beta.27"
     form-data "^3.0.0"
-    invariant "^2.2.4"
     lodash "^4.17.15"
-    messaging-api-common "^1.0.0-beta.16"
+    messaging-api-common "^1.0.0-beta.29"
+    ts-invariant "^0.4.4"
     warning "^4.0.3"
 
-messaging-api-slack@1.0.0-beta.16:
-  version "1.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/messaging-api-slack/-/messaging-api-slack-1.0.0-beta.16.tgz#0a509b807d16771e2a639f893fbec7d1a4cd0280"
-  integrity sha512-bu3Nyva9ZLWiSRMnGOasBk4likAvNWU4ZICwwD2if11Cb0emN3pQhtr9DBPk6/FXi/25PQ+f/ZNeB9Y0pz5+qQ==
+messaging-api-messenger@^1.0.0-beta.31:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/messaging-api-messenger/-/messaging-api-messenger-1.0.5.tgz#70a4a34df4582def7bc0ea03a8530644e2ed72aa"
+  integrity sha512-T17O+T6YAPkF8zDydsleMBtZ5HmCBDUZNHmF1nUUM82+WLaeqCTTHvJN3XR6hFjOA7XCTEXoxu4z+0A3QZv9yg==
   dependencies:
-    axios "^0.19.2"
-    axios-error "^1.0.0-beta.16"
+    "@types/append-query" "^2.0.0"
+    "@types/lodash" "^4.14.156"
+    "@types/warning" "^3.0.0"
+    append-query "^2.1.0"
+    axios "^0.21.1"
+    axios-error "^1.0.4"
+    form-data "^3.0.0"
     lodash "^4.17.15"
-    messaging-api-common "^1.0.0-beta.16"
+    messaging-api-common "^1.0.4"
+    ts-invariant "^0.4.4"
+    warning "^4.0.3"
 
-messaging-api-telegram@1.0.0-beta.16:
-  version "1.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/messaging-api-telegram/-/messaging-api-telegram-1.0.0-beta.16.tgz#9091df3838a35ea0d735dc48814eacc490e77439"
-  integrity sha512-R9lWthXQrJw6ySEDyM5oOoBHCwERrOc1YriUAwCq1XD7yqBQae6lMPucJqa0jj2Rzcua4ZrOOQrKqvHJKV7Pog==
+messaging-api-slack@1.0.0-beta.33:
+  version "1.0.0-beta.33"
+  resolved "https://registry.yarnpkg.com/messaging-api-slack/-/messaging-api-slack-1.0.0-beta.33.tgz#b03e9672f6db866deebaab535692da6fa2c40bc6"
+  integrity sha512-oKPbsK87EDfMWsUVNZvFEdfpBxfu2b0PQ/HyAFTBFmcYgp2h/tEYLS7ocAiZ5LSXCR/3Y0W7KgCA9BlPnh+gEA==
   dependencies:
+    "@types/lodash" "^4.14.156"
+    "@types/warning" "^3.0.0"
     axios "^0.19.2"
-    axios-error "^1.0.0-beta.16"
+    axios-error "^1.0.0-beta.27"
     lodash "^4.17.15"
-    messaging-api-common "^1.0.0-beta.16"
+    messaging-api-common "^1.0.0-beta.29"
+    ts-invariant "^0.4.4"
 
-messaging-api-viber@1.0.0-beta.16:
-  version "1.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/messaging-api-viber/-/messaging-api-viber-1.0.0-beta.16.tgz#c382ae98170729cd2bd2b15f0c92b495074b671b"
-  integrity sha512-Gp+MTA3dz/EIOn50NED08bT9kkD4IC/fTDF82dO/UIo57PafCIogP2Mtqooft6gtKMM5PR0Tlcki6rEj7mywtg==
+messaging-api-telegram@1.0.0-beta.33:
+  version "1.0.0-beta.33"
+  resolved "https://registry.yarnpkg.com/messaging-api-telegram/-/messaging-api-telegram-1.0.0-beta.33.tgz#dbf67e7e34cae9c5ea126f363214e2a66d6d13bd"
+  integrity sha512-naE0DgYYdZOfkDMxDdEnDfUomzNB0TkOKS09YkpTVKjUCeB3JJenXfEtVqqk8digfxuDo9C9KdFLiPCZ1jW4uQ==
   dependencies:
+    "@types/lodash" "^4.14.156"
+    "@types/warning" "^3.0.0"
     axios "^0.19.2"
-    axios-error "^1.0.0-beta.16"
+    axios-error "^1.0.0-beta.27"
     lodash "^4.17.15"
-    messaging-api-common "^1.0.0-beta.16"
+    messaging-api-common "^1.0.0-beta.29"
+    ts-invariant "^0.4.4"
+    warning "^4.0.3"
 
-messenger-batch@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/messenger-batch/-/messenger-batch-0.3.1.tgz#045bc5d9d02fe595c9f54d3e4314326a85d71084"
-  integrity sha512-mA0QDOOB0WASvJxu32A7medVGJpuY1+IKDzQd7ipbsJS5lwN5cvP3QJWOgpvm7Py1bQ8Woi8zcsYoPwyC4Rv3w==
+messaging-api-viber@1.0.0-beta.33:
+  version "1.0.0-beta.33"
+  resolved "https://registry.yarnpkg.com/messaging-api-viber/-/messaging-api-viber-1.0.0-beta.33.tgz#7a9f1cfffe99f32b23f60a4f24daf5121bc7228a"
+  integrity sha512-cGxVaHjyXsHDtiHzgzuqYT4IvoTZ7JvlNzQK+7h1J6k3niyb1UQwjd8uC1dcpB86nO9/P98c7OarkY+TbAk0QA==
   dependencies:
-    invariant "^2.2.4"
+    "@types/warning" "^3.0.0"
+    axios "^0.19.2"
+    axios-error "^1.0.0-beta.27"
+    messaging-api-common "^1.0.0-beta.29"
+    ts-invariant "^0.4.4"
+    warning "^4.0.3"
 
 methods@~1.1.2:
   version "1.1.2"
@@ -3912,10 +4025,10 @@ netmask@^2.0.1:
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-2.0.2.tgz#8b01a07644065d536383835823bc52004ebac5e7"
   integrity sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==
 
-ngrok@^3.2.5:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/ngrok/-/ngrok-3.4.0.tgz#adaa66b70401b0b6902825aa3ea325c06f8770d1"
-  integrity sha512-fwgYlGQsLclMRVkGNhdWbeE5xx/xCoKr8zHoqRehOxGu4Ep14dAfe1u45rE0rqtUhWqTVfCl1lWV2rLUNizIDw==
+ngrok@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/ngrok/-/ngrok-3.4.1.tgz#ee20a912831e68a7ac86a6576c21fadbd8458df7"
+  integrity sha512-OTm6Nmi6JINPbzkZff8ysA2WqMeNDg3sOPMFHW2CpatVD5yJxmX1qdyLq3QYNACTKNB3/K9jTkG4wUVpAFX9Dw==
   dependencies:
     "@types/node" "^8.10.50"
     "@types/request" "^2.48.2"
@@ -4068,6 +4181,11 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
+object-inspect@^1.10.3:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.11.0.tgz#9dceb146cedd4148a0d9e51ab88d34cf509922b1"
+  integrity sha512-jp7ikS6Sd3GxQfZJPyH3cjcbJF6GZPClgdV+EFygjFLQ5FmW/dRUnTd9PQ9k0JhoNDabWFbpF1yCdSWCC6gexg==
+
 object-inspect@^1.9.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.9.0.tgz#c90521d74e1127b67266ded3394ad6116986533a"
@@ -4094,6 +4212,16 @@ object.assign@^4.1.2:
     define-properties "^1.1.3"
     has-symbols "^1.0.1"
     object-keys "^1.1.1"
+
+object.fromentries@^2.0.2:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/object.fromentries/-/object.fromentries-2.0.4.tgz#26e1ba5c4571c5c6f0890cef4473066456a120b8"
+  integrity sha512-EsFBshs5RUUpQEY1D4q/m59kMfz4YJvxuNCJcv/jWwOJr34EaVnG11ZrZa0UHB3wnzV1wx8m58T4hQL8IuNXlQ==
+  dependencies:
+    call-bind "^1.0.2"
+    define-properties "^1.1.3"
+    es-abstract "^1.18.0-next.2"
+    has "^1.0.3"
 
 omggif@^1.0.5:
   version "1.0.10"
@@ -4329,6 +4457,11 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+
+path-to-regexp@^6.1.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.2.0.tgz#f7b3803336104c346889adece614669230645f38"
+  integrity sha512-f66KywYG6+43afgE/8j/GoiNyygk/bnoCbps++3ErRKsIYkGGupyv07R2Ok5m9i67Iqc+T2g1eAUGUPzWhYTyg==
 
 path-type@^3.0.0:
   version "3.0.0"
@@ -5370,12 +5503,28 @@ string.prototype.trimend@^1.0.3:
     call-bind "^1.0.0"
     define-properties "^1.1.3"
 
+string.prototype.trimend@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/string.prototype.trimend/-/string.prototype.trimend-1.0.4.tgz#e75ae90c2942c63504686c18b287b4a0b1a45f80"
+  integrity sha512-y9xCjw1P23Awk8EvTpcyL2NIr1j7wJ39f+k6lvRnSMz+mz9CGz9NYPelDk42kOz6+ql8xjfK8oYzy3jAP5QU5A==
+  dependencies:
+    call-bind "^1.0.2"
+    define-properties "^1.1.3"
+
 string.prototype.trimstart@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.3.tgz#9b4cb590e123bb36564401d59824298de50fd5aa"
   integrity sha512-oBIBUy5lea5tt0ovtOFiEQaBkoBBkyJhZXzJYrSmDo5IUUqbOPvVezuRs/agBIdZ2p2Eo1FD6bD9USyBLfl3xg==
   dependencies:
     call-bind "^1.0.0"
+    define-properties "^1.1.3"
+
+string.prototype.trimstart@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.4.tgz#b36399af4ab2999b4c9c648bd7a3fb2bb26feeed"
+  integrity sha512-jh6e984OBfvxS50tdY2nRZnoC5/mLFKOREQfw8t5yytkoUsJRNxvI/E39qu1sD0OtWI3OC0XgKSmcWwziwYuZw==
+  dependencies:
+    call-bind "^1.0.2"
     define-properties "^1.1.3"
 
 string_decoder@~0.10.x:
@@ -5620,12 +5769,19 @@ tough-cookie@^2.3.3, tough-cookie@~2.5.0:
   resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.3.9.tgz#717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9"
   integrity sha1-cXuPIgzAu3tE5AUUwisui7xw2Lk=
 
+ts-invariant@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.4.4.tgz#97a523518688f93aafad01b0e80eb803eb2abd86"
+  integrity sha512-uEtWkFM/sdZvRNNDL3Ehu4WVpwaulhwQszV8mrtcdeE8nN00BV9mAmQ88RkrBhFgl9gMgvjJLAQcZbnPXI9mlA==
+  dependencies:
+    tslib "^1.9.3"
+
 tslib@1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
-tslib@^1.9.0:
+tslib@^1.9.0, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
@@ -5678,6 +5834,11 @@ type-fest@^0.11.0:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.11.0.tgz#97abf0872310fed88a5c466b25681576145e33f1"
   integrity sha512-OdjXJxnCN1AvyLSzeKIgXTXxV+99ZuXl3Hpo9XpJAv9MBcHrrJOQ5kV7ypXOuQie+AmWG25hLbiKdwYTifzcfQ==
 
+type-fest@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.13.1.tgz#0172cb5bce80b0bd542ea348db50c7e21834d934"
+  integrity sha512-34R7HTnG0XIJcBSn5XhDd7nNFPRcXYRZrBB2O2jdKqYODldSzBAqzsWoZYYvduky73toYS/ESqxPvkDf/F0XMg==
+
 type-fest@^0.15.1:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.15.1.tgz#d2c4e73d3e4a53cf1a906396dd460a1c5178ca00"
@@ -5707,6 +5868,16 @@ typedarray-to-buffer@^3.1.5:
   integrity sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
   dependencies:
     is-typedarray "^1.0.0"
+
+unbox-primitive@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/unbox-primitive/-/unbox-primitive-1.0.1.tgz#085e215625ec3162574dc8859abee78a59b14471"
+  integrity sha512-tZU/3NqK3dA5gpE1KtyiJUrEB0lxnGkMFHptJ7q6ewdZ8s12QrODwNbhIJStmJkd1QDXa1NRA8aF2A1zk/Ypyw==
+  dependencies:
+    function-bind "^1.1.1"
+    has-bigints "^1.0.1"
+    has-symbols "^1.0.2"
+    which-boxed-primitive "^1.0.2"
 
 undefsafe@^2.0.3:
   version "2.0.3"
@@ -5843,6 +6014,17 @@ warning@^4.0.3:
   integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
   dependencies:
     loose-envify "^1.0.0"
+
+which-boxed-primitive@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz#13757bc89b209b049fe5d86430e21cf40a89a8e6"
+  integrity sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==
+  dependencies:
+    is-bigint "^1.0.1"
+    is-boolean-object "^1.1.0"
+    is-number-object "^1.0.4"
+    is-string "^1.0.5"
+    is-symbol "^1.0.3"
 
 which-module@^2.0.0:
   version "2.0.0"
