@@ -1,4 +1,4 @@
-**Ngày cập nhật: 17/05/2021 (DD/MM/YYYY)**
+**Ngày cập nhật: 09/08/2021 (DD/MM/YYYY)**
 
 ## Điều khoản dịch vụ
 Cảm ơn các bạn đã sử dụng các sản phẩm và dịch vụ của mình. Dịch vụ được cung cấp bởi [mình](https://github.com/phamleduy04). [Thông tin liên hệ](https://github.com/phamleduy04/chatvoinguoila/blob/master/dieukhoan.md#th%C3%B4ng-tin-li%C3%AAn-h%E1%BB%87) sẽ được kèm ở dưới cùng.
@@ -16,7 +16,7 @@ Các thông tin cá nhân của người dùng có thể được mình sử d�
 ## Hành vi tiêu cực là gì?
 - Tổ chức, tham gia hoặc khuyến khích quấy rối người khác. 
 - Đe doạ bạo lực hoặc đe doạ làm hại người khác. (Điều này bao gồm các mối đe doạ gián tiếp, cũng như chia sẻ hoặc đe doạ chia sẻ thông tin cá nhân riêng tư của ai đó. (Doxxing))
-- Gởi virus, phần mềm độc hại hoặc DDoS.
+- Phát tán virus, phần mềm độc hại hoặc DDoS.
 - Lừa đảo người khác (bao gồm đa cấp xD)
 - Gởi các hình ảnh được mác NSFW (Not safe for work).
 - Quảng cáo dưới mọi hình thức
@@ -34,6 +34,7 @@ Các thông tin cá nhân của người dùng có thể được mình sử d�
 ## Sử dụng Dịch vụ 
 - Bạn phải tuân thủ mọi chính sách nêu trên
 - Mình (hoặc người có thẩm quyền) có thể tạm ngừng hoặc ngừng cung cấp dịch vụ nếu bạn không tuân thủ các điều khoản hoặc chính sách của mình hoặc khi đang điều tra hành vi bị nghi ngờ là sai phạm.
+- **Nghĩa vụ bảo mật của ứng dụng sẽ vô hiệu khi bạn bị cấm, tạm dừng hoặc ngừng cung cấp dịch vụ.**
 
 
 ## Thông tin liên hệ
