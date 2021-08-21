@@ -31,8 +31,9 @@ MESSENGER_APP_SECRET=
 MESSENGER_VERIFY_TOKEN=
 MONGODB=
 ``` 
-14. Chạy lệnh `npm run dev`
-15. Sau đó tạo 1 terminal mới và nhập lệnh `npm run setprofile` và `npm run setwebhook`
+14. Chạy lệnh `npm install`
+15. Chạy lệnh `npm run dev`
+16. Sau đó tạo 1 terminal mới và nhập lệnh `npm run setprofile` và `npm run setwebhook`
 
 ## Báo lỗi và góp ý
 Các bạn có thể tạo [PR (Pull request)](https://github.com/phamleduy04/chatvoinguoila/pulls) hoặc [issue](https://github.com/phamleduy04/chatvoinguoila/issues).
