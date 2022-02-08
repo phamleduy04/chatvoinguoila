@@ -25,9 +25,7 @@ module.exports = async (ctx) => {
     return ctx.sendText("Bạn đang bị cooldown, vui lòng chờ trong giây lát!");
   }
   cooldown.add(userid);
-  setTimeout(() => {
-    cooldown.delete(userid);
-  }, ms("10s"));
+  setTimeout(() => cooldown.delete(userid), ms("10s"));
   if (!data) await standby(userid);
   const msgText = ctx.event.message.text.toLowerCase();
   // những lệnh chỉ có owner xài được

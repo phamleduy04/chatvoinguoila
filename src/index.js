@@ -33,11 +33,11 @@ module.exports = async function App(ctx) {
   Postback: GET_STARTED (lúc vừa sử dụng bot)
             START_MATCHING (lúc bấm nút "tìm kiếm")
   */
+   // echo message event sent from our side;
+  if (ctx.event.isEcho) return;
   if (ctx.event.isPostback) return HandlePostBack;
   // isText: nội dung tin nhắn là string
   else if (ctx.event.isText) return HandleMessage;
-  // echo = duplicate request
-  else if (ctx.event.isEcho) return console.log('Echo');
   // isImage: nội dung tin nhắn là hình ảnh (sticker cũng tính)
   else if (ctx.event.isImage) return HandleImage;
   // isAudio: nội dung tin nhắn là voice message
