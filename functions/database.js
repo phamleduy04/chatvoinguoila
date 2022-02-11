@@ -1,6 +1,7 @@
 const { MONGODB } = process.env;
 const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
+db.on('ready', () => console.log('Database is ready'));
 const { sleep } = require('./utils');
 const nsfwDb = db.createModel('nsfw');
 module.exports = {
