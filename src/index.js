@@ -69,23 +69,9 @@ setInterval(async () => {
       file: 0,
     };
   }
-  let log = await get('log');
-  if (!log) {
-    log = [];
-    await set('log', []);
-  }
+  const log = (await get('log')) || [];
   await set('log', [...log, ...logArr]);
   logArr = [];
 }, ms('10m'));
 
 if (TYPE_RUN == 'ci') process.exit();
-
-/*
-async function createLabel(labelName, key) {
-  if (!labelName || !key) return null;
-  client.createLabel(labelName).then(async label => {
-    await set(key, label.id);
-    return label.id;
-  });
-};
-*/
