@@ -3,7 +3,7 @@ const { Database } = require('quickmongo');
 const db = new Database(MONGODB ? MONGODB : 'mongodb://localhost/chatbattu');
 db.on('ready', () => console.log('Database is ready'));
 const { sleep } = require('./utils');
-const nsfwDb = db.createModel('nsfw');
+const nsfwDb = db.useCollection('nsfw');
 module.exports = {
     get: async function(key) {
         await sleep(500);
